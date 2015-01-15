@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:report_menu?after=report_ext">
+         <command
+               commandId="com.archimatetool.reports.command.HTML"
+               id="com.archimatetool.reports.menuItem.HTML"
+               label="HTML..."
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="com.archimatetool.reports.html.HTMLReportHandler"
+            id="com.archimatetool.reports.command.HTML"
+            name="%action.label">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup>
+      </startup>
+   </extension>
+
+</plugin>

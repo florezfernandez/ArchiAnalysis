@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Archi Zest Visualiser
+Bundle-SymbolicName: com.archimatetool.zest;singleton:=true
+Bundle-Version: 3.0.0.qualifier
+Bundle-Vendor: Phillip Beauvoir
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.help.ui,
+ com.archimatetool.editor,
+ org.eclipse.zest.core,
+ org.eclipse.zest.layouts
+Bundle-Activator: com.archimatetool.zest.ArchimateZestPlugin
+Bundle-ClassPath: com.archimatetool.zest.jar
+Export-Package: com.archimatetool.zest

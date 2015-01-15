@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Jasper Reports
+Bundle-SymbolicName: com.archimatetool.jasperreports;singleton:=true
+Bundle-Version: 3.0.0.qualifier
+Bundle-Vendor: Phillip Beauvoir
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ClassPath: com.archimatetool.jasperreports.jar,
+ lib/commons-beanutils-1.8.0.jar,
+ lib/commons-collections-3.2.1.jar,
+ lib/commons-digester-2.1.jar,
+ lib/commons-logging-1.1.1.jar,
+ lib/iText-2.1.7.js2.jar,
+ lib/jasperreports-5.6.0.jar,
+ lib/jasperreports-fonts-5.6.0.jar,
+ lib/jdt-compiler-3.1.1.jar,
+ lib/jackson-databind-2.1.4.jar,
+ lib/jackson-core-2.1.4.jar
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ com.archimatetool.editor
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: com.archimatetool.jasperreports.JasperReportsPlugin
+Export-Package: com.archimatetool.jasperreports,
+ com.archimatetool.jasperreports.data
