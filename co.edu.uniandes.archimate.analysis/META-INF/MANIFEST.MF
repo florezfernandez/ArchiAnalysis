@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchiMate Analysis Utils
+Bundle-SymbolicName: co.edu.uniandes.archimate.analysis;singleton:=true
+Bundle-Version: 2.5.0.qualifier
+Bundle-Vendor: uniandes
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.8.0",
+ org.eclipse.ui;bundle-version="3.106.0",
+ com.archimatetool.model;bundle-version="3.0.0",
+ com.archimatetool.editor;bundle-version="3.0.0"
+Export-Package: .,
+ co.edu.uniandes.archimate.analysis,
+ co.edu.uniandes.archimate.analysis.entities,
+ co.edu.uniandes.archimate.analysis.exceptions,
+ co.edu.uniandes.archimate.analysis.util,
+ co.edu.uniandes.archimate.analysis.views
+Bundle-ClassPath: co.edu.uniandes.archimate.analysis.jar
+Import-Package: org.eclipse.emf.ecore

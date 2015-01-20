@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Human Resources
+Bundle-SymbolicName: co.edu.uniandes.archimate.analysis.quantitative.hr;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: uniandes
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ co.edu.uniandes.archimate.analysis;bundle-version="1.0.3",
+ com.archimatetool.editor;bundle-version="3.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: co.edu.uniandes.archimate.analysis.quantitative.hr.jar

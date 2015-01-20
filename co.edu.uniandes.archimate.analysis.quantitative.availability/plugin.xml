@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="co.edu.uniandes.archimate.analysis.quantitative.availability.menus.mainmenu.commands.category"
+            name="Capacity Planning Category">
+      </category>
+      <command
+            categoryId="co.edu.uniandes.archimate.analysis.quantitative.availability.menus.mainmenu.commands.category"
+            id="co.edu.uniandes.archimate.analysis.quantitative.availability.commandPercentage"
+            name="Percentage">
+      </command>
+      <command
+            categoryId="co.edu.uniandes.archimate.analysis.quantitative.availability.menus.mainmenu.commands.category"
+            id="co.edu.uniandes.archimate.analysis.quantitative.availability.commandRTO"
+            name="RTO">
+      </command>
+      <command
+            categoryId="co.edu.uniandes.archimate.analysis.quantitative.availability.menus.mainmenu.commands.category"
+            id="co.edu.uniandes.archimate.analysis.quantitative.availability.commandRPO"
+            name="RPO">
+      </command>mmand>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="co.edu.uniandes.archimate.analysis.quantitative.availability.percentage.AvailabilityPercentage"
+            commandId="co.edu.uniandes.archimate.analysis.quantitative.availability.commandPercentage">
+      </handler>
+      <handler
+            class="co.edu.uniandes.archimate.analysis.quantitative.availability.rto.RTO"
+            commandId="co.edu.uniandes.archimate.analysis.quantitative.availability.commandRTO">
+      </handler>
+      <handler
+            class="co.edu.uniandes.archimate.analysis.quantitative.availability.rpo.RPO"
+            commandId="co.edu.uniandes.archimate.analysis.quantitative.availability.commandRPO">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="co.edu.uniandes.archimate.analysis.menus.mainmenu"
+               label="ArchiAnalysis"
+               mnemonic="M"
+               tooltip="ArchiAnalysis">
+            <menu
+                  icon="icons/menu-16.png"
+                  id="co.edu.uniandes.archimate.analysis.menus.mainmenu.quantitative.availability"
+                  label="Availability"
+                  mnemonic="A">
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.quantitative.availability.commandPercentage"
+                     icon="icons/analysis-16.png"
+                     label="Estimate overall architecture availability %"
+                     mnemonic="p"
+                     style="push"
+                     tooltip="Estimate overall architecture availability %">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.quantitative.availability.commandRTO"
+                     icon="icons/analysis-16.png"
+                     label="Estimate overall architecture RTO"
+                     mnemonic="t"
+                     style="push"
+                     tooltip="Estimate overall architecture RTO">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.quantitative.availability.commandRPO"
+                     icon="icons/analysis-16.png"
+                     label="Estimate overall architecture RPO"
+                     mnemonic="p"
+                     style="push"
+                     tooltip="Estimate overall architecture RPO">
+               </command>
+            </menu>
+         </menu>
+      </menuContribution>
+   </extension>
+
+</plugin>

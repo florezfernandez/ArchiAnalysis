@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.quantitative.count.element.CountElementType"
+            id="co.edu.uniandes.archimate.analysis.quantitative.count.CountElements"
+            name="CountElements">
+      </command>
+      <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.quantitative.count.relation.CountRelationType"
+            id="co.edu.uniandes.archimate.analysis.quantitative.count.CountRelations"
+            name="CountRelations">
+      </command>
+   </extension>
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu id="co.edu.uniandes.archimate.analysis.menus.mainmenu" label="ArchiAnalysis">
+            <menu
+                  icon="icons/sum_icon_16.png"
+                  id="co.edu.uniandes.archimate.analysis.menus.mainmenu.Counters"
+                  label="Counters">
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.quantitative.count.CountElements"
+                     icon="icons/analysis-16.png"
+                     label="Count Elements"
+                     style="push"
+                     tooltip="Count elements">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.quantitative.count.CountRelations"
+                     icon="icons/analysis-16.png"
+                     label="Count Relations"
+                     style="push"
+                     tooltip="Count Relations">
+               </command>
+            </menu>
+         </menu>
+      </menuContribution>
+   </extension>
+</plugin>
