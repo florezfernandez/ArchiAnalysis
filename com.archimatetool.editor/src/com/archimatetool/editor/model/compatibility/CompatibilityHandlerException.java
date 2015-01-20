@@ -11,8 +11,9 @@ package com.archimatetool.editor.model.compatibility;
  * @author Phillip Beauvoir
  */
 public class CompatibilityHandlerException extends Exception {
-    
-    public CompatibilityHandlerException(String message) {
+	private static final long serialVersionUID = 1L;
+
+	public CompatibilityHandlerException(String message) {
         super(message);
     }
 }

@@ -11,8 +11,9 @@ package com.archimatetool.editor.model.compatibility;
  * @author Phillip Beauvoir
  */
 public class IncompatibleModelException extends Exception {
-    
-    public IncompatibleModelException(String message) {
+	private static final long serialVersionUID = 1L;
+
+	public IncompatibleModelException(String message) {
         super(message);
     }
 }

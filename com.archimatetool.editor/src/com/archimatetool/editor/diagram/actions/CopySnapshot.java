@@ -65,7 +65,9 @@ public final class CopySnapshot {
      * Can get key from value
      */
     public static class BidiHashtable<K, V> extends Hashtable<K, V> {
-        public synchronized K getKey(Object value) {
+		private static final long serialVersionUID = 1L;
+
+		public synchronized K getKey(Object value) {
             for(Entry<K, V> entry : entrySet()) {
                 V v = entry.getValue();
                 if(v.equals(value)) {
