@@ -20,6 +20,7 @@ import com.archimatetool.model.IRelationship;
 import com.archimatetool.model.impl.AggregationRelationship;
 import com.archimatetool.model.impl.CompositionRelationship;
 import com.archimatetool.model.impl.DiagramModelGroup;
+import com.archimatetool.model.impl.TriggeringRelationship;
 
 public class DiagramModelUtil {
 
@@ -185,7 +186,7 @@ public class DiagramModelUtil {
 
 	public static List<IArchimateElement>  getTargetElementsByRelation(IDiagramModel diagramModel, Class<? extends IArchimateElement> targetElementClazz, Class<? extends IRelationship> relationClazz, IArchimateElement sourceElement){
 		List<IArchimateElement> listElements = new ArrayList<IArchimateElement>();
-		if(relationClazz.equals(CompositionRelationship.class) || relationClazz.equals(AggregationRelationship.class))
+		if((relationClazz.equals(CompositionRelationship.class) || relationClazz.equals(AggregationRelationship.class)))
 		{
 			List<IArchimateElement> listElementsCurrentViewTargetElements= getCurrentViewElementsByType(diagramModel,targetElementClazz);
 

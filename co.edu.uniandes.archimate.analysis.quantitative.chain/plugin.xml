@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.quantitative.chain.bottleneck.Bottleneck"
+            id="co.edu.uniandes.archimate.analysis.quantitative.chain.Bottleneck"
+            name="Bottleneck">
+      </command>
+   </extension>
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu id="co.edu.uniandes.archimate.analysis.menus.mainmenu" label="ArchiAnalysis">
+            <menu
+                  icon="icons/sum_icon_16.png"
+                  id="co.edu.uniandes.archimate.analysis.menus.mainmenu.Chain"
+                  label="Chains">
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.quantitative.chain.Bottleneck"
+                     icon="icons/analysis-16.png"
+                     label="Bottleneck"
+                     style="push"
+                     tooltip="Bottleneck">
+               </command>
+            </menu>
+         </menu>
+      </menuContribution>
+   </extension>
+</plugin>
