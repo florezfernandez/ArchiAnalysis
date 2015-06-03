@@ -27,6 +27,10 @@ public class MatrixResult implements ITableResult, Serializable{
 		name=element1.getName();
 		result=new Object[orderedElements2.size()+1];
 		result[0]=name;
+		for(int i=1;i<result.length;i++){
+			result[i]="";
+		}
+		
 		for(String target:element1.getIdTarget()){
 			for(int i=0;i<orderedElements2.size();i++){
 				WElement element2=orderedElements2.get(i);

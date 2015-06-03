@@ -25,8 +25,6 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-import com.apple.dnssd.TXTRecord;
-
 import co.edu.uniandes.archimate.analysis.chain.utilities.ChainedFunction;
 
 public class EditFunctionDialog extends Dialog {

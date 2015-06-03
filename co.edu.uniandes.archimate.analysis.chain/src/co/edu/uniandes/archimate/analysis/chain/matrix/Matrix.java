@@ -158,7 +158,10 @@ public class Matrix extends AbstractArchiAnalysisFunction implements IChainableA
 			if(relationship.getClass().equals(xRelationshipClass)){
 				String idSource=relationship.getSource().getId();
 				String idTarget=relationship.getTarget().getId();
-				elements1.get(idSource).getIdTarget().add(idTarget);
+				if(elements1.get(idSource)!=null){
+					elements1.get(idSource).getIdTarget().add(idTarget);
+				}
+				
 			}
 
 
@@ -175,7 +178,7 @@ public class Matrix extends AbstractArchiAnalysisFunction implements IChainableA
 	 */
 	@Override
 	public Object executeFunction() throws Exception {
-
+		
 		Collection<WElement> elements=(Collection<WElement>) elements1.values();
 		for(WElement element:elements){
 			MatrixResult result=new MatrixResult(element, orderedElements2);
