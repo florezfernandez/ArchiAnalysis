@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+<function>
+<name>Catalog</name>
+<handler>co.edu.uninades.archimate.analysis.chain.catalog.Catalog</handler>
+</function>
+<function>
+<name>Matrix</name>
+<handler>co.edu.uninades.archimate.analysis.chain.matrix.Matrix</handler>
+</function>
+</functions>

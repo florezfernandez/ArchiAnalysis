@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.catalog.Catalog"
+            id="co.edu.uniandes.archimate.analysis.chain.catalog.Catalog"
+            name="Catalog">
+      </command>
+      <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.matrix.Matrix"
+            id="co.edu.uniandes.archimate.analysis.chain.matrix.Matrix"
+            name="Matrix">
+      </command>
+      <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.load.Load"
+            id="co.edu.uniandes.archimate.analysis.chain.load.Load"
+            name="Load">
+      </command>
+      <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.loadChain.LoadChain"
+            id="co.edu.uniandes.archimate.analysis.chain.loadChain.LoadChain"
+            name="Load Chain">
+      </command>
+      <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.createChain.CreateChain"
+            id="co.edu.uniandes.archimate.analysis.chain.createChain.CreateChain"
+            name="Create Chain">
+      </command>
+      <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.countMatrix.CountMatrix"
+            id="co.edu.uniandes.archimate.analysis.chain.countMatrix.CountMatrix"
+            name="Count Matrix">
+      </command>
+   </extension>
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu id="co.edu.uniandes.archimate.analysis.menus.mainmenu" label="ArchiAnalysis">
+            <menu
+                  icon="icons/sum_icon_16.png"
+                  id="co.edu.uniandes.archimate.analysis.menus.mainmenu.Chain2"
+                  label="Chain">
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.chain.catalog.Catalog"
+                     icon="icons/analysis-16.png"
+                     label="Catalog"
+                     style="push"
+                     tooltip="Catalog">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.chain.matrix.Matrix"
+                     icon="icons/analysis-16.png"
+                     label="Matrix"
+                     style="push"
+                     tooltip="Matrix">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.chain.countMatrix.CountMatrix"
+                     icon="icons/analysis-16.png"
+                     label="Count Matrix"
+                     style="push"
+                     tooltip="Count">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.chain.load.Load"
+                     icon="icons/analysis-16.png"
+                     label="Load"
+                     style="push"
+                     tooltip="Load">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.chain.loadChain.LoadChain"
+                     icon="icons/analysis-16.png"
+                     label="Load Chain"
+                     style="push"
+                     tooltip="Load Chain">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.chain.createChain.CreateChain"
+                     icon="icons/analysis-16.png"
+                     label="Create Chain"
+                     style="push"
+                     tooltip="Create Chain">
+               </command>
+            </menu>
+         </menu>
+      </menuContribution>
+   </extension>
+</plugin>
