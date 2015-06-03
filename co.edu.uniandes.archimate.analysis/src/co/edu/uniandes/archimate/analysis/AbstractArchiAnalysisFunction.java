@@ -34,7 +34,7 @@ public class AbstractArchiAnalysisFunction extends AbstractModelSelectionHandler
 	private ValidationResponse validationResponse;
 
 	protected ArchimateDiagramEditor getADiagramEditor() {
-		return aDiagramEditor;
+		return getaDiagramEditor();
 	}
 
 	protected IDiagramModel getDiagramModel() {
@@ -52,13 +52,13 @@ public class AbstractArchiAnalysisFunction extends AbstractModelSelectionHandler
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 
 		IArchimateModel model = getActiveArchimateModel();
-		
-		if(model != null) {
-			this.aDiagramEditor = (ArchimateDiagramEditor)workbenchWindow.getActivePage().getActiveEditor();
-			this.diagramModel = aDiagramEditor.getModel();
-			this.gfViwer = EditorManager.openDiagramEditor(diagramModel).getGraphicalViewer();
 
-			validationResponse = new ValidationResponse(this.diagramModel.getName() + " - "+ this.getName() + " Validation results");
+		if(model != null) {
+			this.setaDiagramEditor((ArchimateDiagramEditor)workbenchWindow.getActivePage().getActiveEditor());
+			this.setDiagramModel(getaDiagramEditor().getModel());
+			this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
+
+			validationResponse = new ValidationResponse(this.getDiagramModel().getName() + " - "+ this.getName() + " Validation results");
 			try {
 				ViewsUtil.hideViewPart(ArchiAnalysisResultsView.ID);
 				this.validateModel(validationResponse);
@@ -73,11 +73,11 @@ public class AbstractArchiAnalysisFunction extends AbstractModelSelectionHandler
 				}
 			} catch (Exception e) {
 				validationResponse.addError(e.getMessage());
-				ArchiAnalysisLogView.fillView(this.aDiagramEditor,validationResponse,true);				
+				ArchiAnalysisLogView.fillView(this.getaDiagramEditor(),validationResponse,true);				
 				e.printStackTrace();
 			}
 
-			gfViwer.deselectAll();
+			getGfViwer().deselectAll();
 
 		}
 
@@ -85,64 +85,64 @@ public class AbstractArchiAnalysisFunction extends AbstractModelSelectionHandler
 	}
 
 	private void pritValidation(ValidationResponse validationResponse){
-		ArchiAnalysisLogView.fillView(this.aDiagramEditor,validationResponse,true);
+		ArchiAnalysisLogView.fillView(this.getaDiagramEditor(),validationResponse,true);
 		System.out.print(validationResponse.toString());
 	}
 
 	@SuppressWarnings("unchecked")
 	protected List<IRelationship> getRelations(Class<? extends IRelationship>... relations)
 	{
-		List<IRelationship> listRelations =  DiagramModelUtil.getCurrentViewRelationsByType(this.diagramModel, relations);
+		List<IRelationship> listRelations =  DiagramModelUtil.getCurrentViewRelationsByType(this.getDiagramModel(), relations);
 		return listRelations;
 	}
 
 	@SuppressWarnings("unchecked")
 	protected List<IArchimateElement> getElements(Class<? extends IArchimateElement>... elements)
 	{
-		List<IArchimateElement> listElements =  DiagramModelUtil.getCurrentViewElementsByType(this.diagramModel, elements);
+		List<IArchimateElement> listElements =  DiagramModelUtil.getCurrentViewElementsByType(this.getDiagramModel(), elements);
 		return listElements;
 	}
 
 	protected List<IRelationship> getWeakTypedRelations(WeakTypedRelation... weakTypeRelations)
 	{
-		List<IRelationship> listRelations =  DiagramModelUtil.getCurrentViewRelationsByType(this.diagramModel, weakTypeRelations);
+		List<IRelationship> listRelations =  DiagramModelUtil.getCurrentViewRelationsByType(this.getDiagramModel(), weakTypeRelations);
 		return listRelations;
 	}
 
 	protected List<IArchimateElement> getWeakTypedElements(WeakTypedElement... weakTypedElements)
 	{
-		List<IArchimateElement> listElements =  DiagramModelUtil.getCurrentViewElementsByType(this.diagramModel, weakTypedElements);
+		List<IArchimateElement> listElements =  DiagramModelUtil.getCurrentViewElementsByType(this.getDiagramModel(), weakTypedElements);
 		return listElements;
 	}
 
 	protected List<IArchimateElement> getSourceElementsByRelation(Class<? extends IArchimateElement> sourceElementClazz, Class<? extends IRelationship> relationClazz, IArchimateElement targetElement)
 	{
-		List<IArchimateElement> listElements =  DiagramModelUtil.getSourceElementsByRelation(this.diagramModel, sourceElementClazz,relationClazz,targetElement);
+		List<IArchimateElement> listElements =  DiagramModelUtil.getSourceElementsByRelation(this.getDiagramModel(), sourceElementClazz,relationClazz,targetElement);
 		return listElements;		
 	}
 
 	protected List<IArchimateElement> getTargetElementsByRelation(Class<? extends IArchimateElement> targetElementClazz, Class<? extends IRelationship> relationClazz, IArchimateElement sourceElement)
 	{
-		List<IArchimateElement> listElements =  DiagramModelUtil.getTargetElementsByRelation(this.diagramModel, targetElementClazz,relationClazz,sourceElement);
+		List<IArchimateElement> listElements =  DiagramModelUtil.getTargetElementsByRelation(this.getDiagramModel(), targetElementClazz,relationClazz,sourceElement);
 		return listElements;		
 	}
 
 	protected List<IRelationship> getRelationsByRelationTypeAndSourceElement(Class<? extends IRelationship> relationClazz, IArchimateElement sourceElement) {
-		List<IRelationship> listRelations =  DiagramModelUtil.getRelationsByRelationTypeAndSourceElement(this.diagramModel, relationClazz, sourceElement);
+		List<IRelationship> listRelations =  DiagramModelUtil.getRelationsByRelationTypeAndSourceElement(this.getDiagramModel(), relationClazz, sourceElement);
 		return listRelations;
 	}
 
 	protected List<IRelationship> getRelationsByRelationTypeAndTargetElement(Class<? extends IRelationship> relationClazz, IArchimateElement targetElement) {
-		List<IRelationship> listRelations =  DiagramModelUtil.getRelationsByRelationTypeAndTargetElement(this.diagramModel, relationClazz, targetElement);
+		List<IRelationship> listRelations =  DiagramModelUtil.getRelationsByRelationTypeAndTargetElement(this.getDiagramModel(), relationClazz, targetElement);
 		return listRelations;
 	}
 
 	protected IArchimateElement getTargetElementFromRelationsByElement(Class<? extends IArchimateElement> targetElementClazz, IRelationship relationship) {
-		return  DiagramModelUtil.getTargetElementFromRelationsByElement(this.diagramModel, targetElementClazz, relationship);
+		return  DiagramModelUtil.getTargetElementFromRelationsByElement(this.getDiagramModel(), targetElementClazz, relationship);
 	}
 
 	protected IArchimateElement getSourceElementFromRelationsByElement(Class<? extends IArchimateElement> sourceElementClazz, IRelationship relationship) {
-		return  DiagramModelUtil.getSourceElementFromRelationsByElement(this.diagramModel, sourceElementClazz, relationship);
+		return  DiagramModelUtil.getSourceElementFromRelationsByElement(this.getDiagramModel(), sourceElementClazz, relationship);
 	}
 
 	protected TableViewer createTable(String[] headers, int[] widths, List<? extends ITableResult> input, boolean headerVisible, boolean linesVisible) {
@@ -157,8 +157,8 @@ public class AbstractArchiAnalysisFunction extends AbstractModelSelectionHandler
 			columns[i].setText(headers[i]);
 			columns[i].setWidth(widths[i]);
 		}
-		
-		return view.createTableView(this, aDiagramEditor, input, table);
+
+		return view.createTableView(this, getaDiagramEditor(), input, table);
 	}	
 
 	@Override
@@ -187,5 +187,30 @@ public class AbstractArchiAnalysisFunction extends AbstractModelSelectionHandler
 	public Boolean clearResults() {
 
 		return true;
+	}
+
+	public ArchimateDiagramEditor getaDiagramEditor() {
+		return aDiagramEditor;
+	}
+
+	public void setaDiagramEditor(ArchimateDiagramEditor aDiagramEditor) {
+		this.aDiagramEditor = aDiagramEditor;
+	}
+
+	public void setDiagramModel(IDiagramModel diagramModel) {
+		this.diagramModel = diagramModel;
+	}
+
+	public void setGfViwer(GraphicalViewer gfViwer) {
+		this.gfViwer = gfViwer;
+	}
+
+	public void initializeForChain(){
+		IArchimateModel model = getActiveArchimateModel();
+		if(model!=null){
+			this.setaDiagramEditor((ArchimateDiagramEditor)workbenchWindow.getActivePage().getActiveEditor());
+			this.setDiagramModel(getaDiagramEditor().getModel());
+			this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
+		}
 	}
 }
