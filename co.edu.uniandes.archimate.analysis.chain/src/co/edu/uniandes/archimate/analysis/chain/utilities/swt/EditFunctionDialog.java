@@ -42,6 +42,7 @@ public class EditFunctionDialog extends Dialog {
 	private String[] inputValues;
 	
 	private Button[] checkBtns;
+	private Button[] checkBtns2;
 	
 	private Label[] outputLbls;
 	private Text[] outputTxts;
@@ -182,6 +183,7 @@ public class EditFunctionDialog extends Dialog {
 		inputLbls=new Label[inNames.length];
 		inputTxts=new Text[inNames.length];
 		checkBtns=new Button[inNames.length];
+		checkBtns2=new Button[inNames.length];
 		
 		outputLbls=new Label[outNames.length];
 		outputTxts=new Text[outNames.length];
@@ -201,7 +203,7 @@ public class EditFunctionDialog extends Dialog {
 
 		Group grpInputs = new Group(paramsComposite, SWT.NONE);
 		grpInputs.setText("Inputs");
-		grpInputs.setLayout(new GridLayout(3, false));
+		grpInputs.setLayout(new GridLayout(4, false));
 
 		for(int i=0;i<inputs.length;i++){
 			inputLbls[i] = new Label(grpInputs, SWT.NONE);
@@ -222,6 +224,9 @@ public class EditFunctionDialog extends Dialog {
 			checkBtns[i].setText("Referenced");
 			checkBtns[i].setSelection(function.getReferenced(i));
 
+			
+			checkBtns2[i] = new Button(grpInputs, SWT.CHECK);
+			checkBtns2[i].setText("User Input");
 
 
 		}

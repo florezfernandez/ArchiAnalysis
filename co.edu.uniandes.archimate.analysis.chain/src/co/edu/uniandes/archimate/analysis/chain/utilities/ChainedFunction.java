@@ -5,9 +5,14 @@ import java.util.ArrayList;
 
 import sun.security.util.Length;
 import co.edu.uniandes.archimate.analysis.analysischain.IChainableArchiFunction;
+import co.edu.uniandes.archimate.analysis.chain.addition.Addition;
 import co.edu.uniandes.archimate.analysis.chain.catalog.Catalog;
+import co.edu.uniandes.archimate.analysis.chain.childrenCatalog.ChildrenCatalog;
 import co.edu.uniandes.archimate.analysis.chain.countMatrix.CountMatrix;
+import co.edu.uniandes.archimate.analysis.chain.getCatalogElement.GetCatalogElement;
+import co.edu.uniandes.archimate.analysis.chain.getProperty.GetPropertyInRelation;
 import co.edu.uniandes.archimate.analysis.chain.matrix.Matrix;
+import co.edu.uniandes.archimate.analysis.chain.relationshipsFromElement.RelationshipsFromElement;
 
 public class ChainedFunction {
 	
@@ -47,6 +52,30 @@ public class ChainedFunction {
 		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.countMatrix.CountMatrix")){
 			name="Count Matrix";
 			return new CountMatrix();
+		}
+		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.getProperty.GetProperty")){
+			name="Get Property";
+			return new GetPropertyInRelation();
+		}
+		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.getPropertyInRelation.GetPropertyInRelation")){
+			name="Get Property";
+			return new GetPropertyInRelation();
+		}
+		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.getCatalogElement.GetCatalogElement")){
+			name="Get Catalog Element";
+			return new GetCatalogElement();
+		}
+		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.addition.Addition")){
+			name="Addition";
+			return new Addition();
+		}
+		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.childrenCatalog.ChildrenCatalog")){
+			name="Children Catalog";
+			return new ChildrenCatalog();
+		}
+		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.relationshipsFromElement.RelationshipsFromElement")){
+			name="Relationships from Catalog";
+			return new RelationshipsFromElement();
 		}
 		else{
 			return null;

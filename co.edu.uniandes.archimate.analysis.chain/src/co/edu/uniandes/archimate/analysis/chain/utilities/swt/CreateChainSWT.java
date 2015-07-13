@@ -93,6 +93,18 @@ public class CreateChainSWT extends Shell {
 			}
 		});
 		btnAddFunction.setText("Add Function");
+		
+		Button btnAddIf = new Button(functionActionsComposite, SWT.NONE);
+		GridData gd_btnAddIf = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_btnAddIf.widthHint = 102;
+		btnAddIf.setLayoutData(gd_btnAddIf);
+		btnAddIf.setText("Add If");
+		
+		Button btnAddWhile = new Button(functionActionsComposite, SWT.NONE);
+		GridData gd_btnAddWhile = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_btnAddWhile.widthHint = 101;
+		btnAddWhile.setLayoutData(gd_btnAddWhile);
+		btnAddWhile.setText("Add While");
 
 		btnEditFunction = new Button(functionActionsComposite, SWT.NONE);
 		btnEditFunction.setEnabled(false);
@@ -111,7 +123,7 @@ public class CreateChainSWT extends Shell {
 				}
 			}
 		});
-		btnEditFunction.setText("Edit Function");
+		btnEditFunction.setText("Edit");
 
 		btnDeleteFunction = new Button(functionActionsComposite, SWT.NONE);
 		btnDeleteFunction.addSelectionListener(new SelectionAdapter() {
@@ -124,7 +136,7 @@ public class CreateChainSWT extends Shell {
 		});
 		btnDeleteFunction.setEnabled(false);
 		btnDeleteFunction.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		btnDeleteFunction.setText("Delete Function");
+		btnDeleteFunction.setText("Delete");
 
 		Composite chainActionsComposite = new Composite(this, SWT.NONE);
 		chainActionsComposite.setLayoutData(BorderLayout.SOUTH);
