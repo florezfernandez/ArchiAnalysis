@@ -15,6 +15,7 @@ import com.archimatetool.model.IRelationship;
 import com.archimatetool.model.impl.AssignmentRelationship;
 import com.archimatetool.model.impl.BusinessActor;
 import com.archimatetool.model.impl.BusinessFunction;
+import com.archimatetool.model.impl.BusinessRole;
 import com.archimatetool.model.impl.DiagramModelArchimateObject;
 
 public class Bottleneck extends AbstractArchiAnalysisFunction{
@@ -58,7 +59,7 @@ public class Bottleneck extends AbstractArchiAnalysisFunction{
 		elements1 =new HashMap<String,WElement>();
 		elements2 =new HashMap<String,WElement>();
 		orderedElements2=new ArrayList<WElement>();
-		element1Class=BusinessActor.class;
+		element1Class=BusinessRole.class;
 		element2Class=BusinessFunction.class;
 		xRelationshipClass=AssignmentRelationship.class;
 		ArrayList<IArchimateElement> list1=new ArrayList<IArchimateElement>();
