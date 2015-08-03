@@ -41,9 +41,9 @@ import com.archimatetool.model.impl.BusinessActor;
 import com.archimatetool.model.impl.BusinessFunction;
 import com.archimatetool.model.impl.DiagramModelArchimateObject;
 
-public class GetProperty extends AbstractArchiAnalysisFunction implements IChainableArchiFunction{
+public class GetPropertyInRelation extends AbstractArchiAnalysisFunction implements IChainableArchiFunction{
 
-	private List<GetPropertyResult> results1;
+	private List<GetPropertyInRelationResult> results1;
 	private IArchimateElement element1;
 	private String pName;
 	private String pValue;
@@ -87,7 +87,7 @@ public class GetProperty extends AbstractArchiAnalysisFunction implements IChain
 			}
 		}
 
-		GetPropertyResult result=new GetPropertyResult(pName,pValue);
+		GetPropertyInRelationResult result=new GetPropertyInRelationResult(pName,pValue);
 		results1.add(result);
 		return null;
 	}
@@ -124,7 +124,7 @@ public class GetProperty extends AbstractArchiAnalysisFunction implements IChain
 
 	@Override
 	public String getDescription() {
-		return "This function returns property of the specified element.\n"
+		return "This function returns property of the specified relationship.\n"
 				+ "Input parameters:\n"
 				+ "1. Id of the element\n"
 				+ "2. Name of the property\n"
@@ -139,21 +139,24 @@ public class GetProperty extends AbstractArchiAnalysisFunction implements IChain
 		if(params.length!=2){
 			throw new Exception("Wrong number of parameters");
 		}
-		String elementID=params[0];
+		String relationID=params[0];
 		ArrayList<String> list=new ArrayList<String>();
-		list.add(elementID);
 		pName=params[1];
-		if(elementID==null){
+		if(relationID==null){
 			throw new Exception("Id can't be null");
 		}
 		if(pName==null){
 			throw new Exception("Property name can't be null");
 		}
 
-		results1 = new ArrayList<GetPropertyResult>();
+		results1 = new ArrayList<GetPropertyInRelationResult>();
 		ArrayList<IArchimateElement> list1=new ArrayList<IArchimateElement>();
-		for(IDiagramModelObject diagramModelObj: this.getDiagramModel().getChildren()){
-			searchElementsRecursively(diagramModelObj, list1,list);
+		List<IRelationship> relationships = getRelations(IRelationship.class);
+		for(IRelationship relationship:relationships){
+			if(relationship.getId().equals(relationID)){
+				list1.add(relationship);
+			}
+
 		}
 		element1=list1.get(0);
 		executeFunction();
@@ -167,7 +170,7 @@ public class GetProperty extends AbstractArchiAnalysisFunction implements IChain
 	@Override
 	public String[] inNames() {
 
-		return new String[]{"Element ID:","Property"};
+		return new String[]{"Relarionship ID:","Property"};
 	}
 
 	@Override

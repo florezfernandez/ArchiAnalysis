@@ -1,4 +1,4 @@
-package co.edu.uniandes.archimate.analysis.chain.getProperty;
+package co.edu.uniandes.archimate.analysis.chain.getPropertyInRelation;
 
 import java.io.Serializable;
 

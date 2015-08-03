@@ -17,7 +17,9 @@ import co.edu.uniandes.archimate.analysis.chain.utilities.swt.UserInputSWT;
 
 public class XmlChainHandler extends DefaultHandler {
 
-
+/**
+ * Constantes para condiciones
+ */
 	public final static String GT="GT";
 	public final static String LT="LT";
 	public final static String GEQ="GEQ";
@@ -30,20 +32,38 @@ public class XmlChainHandler extends DefaultHandler {
 
 	private List<ChainedFunction> functionList = null;
 	private ChainedFunction function = null;
+	/**
+	 * Hash map donde se guardan los outputs de las funciones ejecutadas
+	 */
 	private HashMap<String, String> outputsHash;
+	
 	private ArrayList<String> inputs;
 	private ArrayList<String> outputsNames;
+	/**
+	 * Atributos para guardar la informacion de las condiciones y así poder 
+	 * evaluarla
+	 */
 	private String rhs;
 	private String lhs;
 	private String relation;
-
+/**
+ * Este arreglo tiene el estado de verdad de ejecucion. Cuando el primer 
+ * elemento (0) esta en true se debe ejecutar todo lo que se parsea. 
+ * Cuando entra a un If/while debe agregar un estado de verdad en la posicion 0
+ * (Corriendo las demas estados) cuando se termina el if/while se deba remover 
+ * el estado de verdad (Ver funciones startelement/ endElement)
+ */
 	private ArrayList<Boolean> booleanState;
 
 	public List<ChainedFunction> getFuncList() {
 		return functionList;
 	}
 
-
+	/**
+	 * Atributos para controlar el flujo del Handler. Activar cuando el parser 
+	 * lea el tag inicial, desactivar cuando lea el tag de cierre
+	 * 
+	 */
 	boolean bName =false;
 	boolean bClass =false;
 	boolean bInputs =false;
@@ -66,13 +86,17 @@ public class XmlChainHandler extends DefaultHandler {
 
 
 	@Override
+	/**
+	 * Prende los booleans correspondientes para manejar el flujo del parser. 
+	 * Ademas inicializa los elementos necesarios por cada caso
+	 */
 	public void startElement(String uri, String localName, String qName, Attributes attributes)
 			throws SAXException {
 
 
 
 		if (qName.equalsIgnoreCase("function")) {
-			//create a new Function and put it in Map
+			//create a new Function and put it in array
 			function=new ChainedFunction();
 			//initialize lists
 			inputs=new ArrayList<String>();
@@ -132,14 +156,17 @@ public class XmlChainHandler extends DefaultHandler {
 			bLHS = true;
 		}
 		else if (qName.equalsIgnoreCase("consequent")) {
+			//Arregla el estado de verdad dependiendo de la condicion 
 			booleanState.set(0, booleanState.get(0)&&booleanState.get(1));
 			bConsequent = true;
 		}
 		else if (qName.equalsIgnoreCase("alternative")) {
+			//Arregla el estado de verdad dependiendo de la condicion 
 			booleanState.set(0, !(booleanState.get(0))&&booleanState.get(1));
 			bAlternative = true;
 		}
 		else if (qName.equalsIgnoreCase("statements")) {
+			//Arregla el estado de verdad dependiendo de la condicion 
 			booleanState.set(0, booleanState.get(0)&&booleanState.get(1));
 			bStatements = true;
 		}
@@ -154,6 +181,7 @@ public class XmlChainHandler extends DefaultHandler {
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
+		// Si el estado de verdad actual es true ejecutan las funciones
 		if(booleanState.get(0)){
 			if (qName.equalsIgnoreCase("function")) {
 				functionList.add(function);
@@ -193,6 +221,7 @@ public class XmlChainHandler extends DefaultHandler {
 				booleanState.remove(0);
 				bWhile = false;
 			}
+			//Evalua la condicion y agrega un estado de verdad
 			else if (qName.equalsIgnoreCase("condition")) {
 				if(relation.equals(GT)||relation.equals(LT)||relation.equals(GEQ)||relation.equals(LEQ)||relation.equals(EQUALS)){
 					int iRHS=Integer.parseInt(rhs);
@@ -245,19 +274,7 @@ public class XmlChainHandler extends DefaultHandler {
 		}
 		else{
 			if (qName.equalsIgnoreCase("function")) {
-				//				functionList.add(function);
-				//				try {
-				//					String[] outs=function.execute();
-				//					for(int i=0;i<outs.length;i++){
-				//						String outName=outputsNames.get(i);
-				//						if(!outName.equals("")){
-				//							outputsHash.put(outName, outs[i]);
-				//						}
-				//					}
-				//				} catch (Exception e) {
-				//					// TODO Auto-generated catch block
-				//					e.printStackTrace();
-				//				}
+
 
 
 			}
@@ -309,7 +326,6 @@ public class XmlChainHandler extends DefaultHandler {
 	public void characters(char ch[], int start, int length) throws SAXException {
 		if(booleanState.get(0)){
 			if (bClass) {
-				//age element, set Employee age
 				function.setFunctionClass(new String(ch, start, length));
 				bClass = false;
 			}  else if (bInputs&&bInput&&bValue) {

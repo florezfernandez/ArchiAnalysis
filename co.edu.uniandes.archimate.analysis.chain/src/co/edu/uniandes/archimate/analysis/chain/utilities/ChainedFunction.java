@@ -10,7 +10,7 @@ import co.edu.uniandes.archimate.analysis.chain.catalog.Catalog;
 import co.edu.uniandes.archimate.analysis.chain.childrenCatalog.ChildrenCatalog;
 import co.edu.uniandes.archimate.analysis.chain.countMatrix.CountMatrix;
 import co.edu.uniandes.archimate.analysis.chain.getCatalogElement.GetCatalogElement;
-import co.edu.uniandes.archimate.analysis.chain.getProperty.GetPropertyInRelation;
+import co.edu.uniandes.archimate.analysis.chain.getPropertyInRelation.GetPropertyInRelation;
 import co.edu.uniandes.archimate.analysis.chain.matrix.Matrix;
 import co.edu.uniandes.archimate.analysis.chain.relationshipsFromElement.RelationshipsFromElement;
 
@@ -40,6 +40,15 @@ public class ChainedFunction {
 		referenced=new boolean[paramNames.length];
 	}
 	
+	
+	//IMPORTANTE!!!!!
+	//Cuando se agrega una nueva funcion encadenable se debe agregar en este metodo
+	
+	/**
+	 * Metodo que retorna la clase encadenable dado su nombre
+	 * @param className El nombre canonico de la clase para la funcion que se va a ejecutar
+	 * @return una funcion encadenable
+	 */
 	public IChainableArchiFunction classHandler(String className){
 		if(className.equals("co.edu.uniandes.archimate.analysis.chain.catalog.Catalog")){
 			name="Catalog";
