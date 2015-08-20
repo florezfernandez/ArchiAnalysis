@@ -13,6 +13,7 @@ import co.edu.uniandes.archimate.analysis.chain.getCatalogElement.GetCatalogElem
 import co.edu.uniandes.archimate.analysis.chain.getPropertyInRelation.GetPropertyInRelation;
 import co.edu.uniandes.archimate.analysis.chain.matrix.Matrix;
 import co.edu.uniandes.archimate.analysis.chain.relationshipsFromElement.RelationshipsFromElement;
+import co.edu.uniandes.archimate.analysis.functional.process.processResponsibilityAssignment.ProcessResponsibilityAssignment;
 
 public class ChainedFunction {
 	
@@ -33,6 +34,8 @@ public class ChainedFunction {
 	
 	public void setFunctionClass(String className){
 		function=classHandler(className);
+		System.out.println("Class: " + className);
+		System.out.println("Function: " + function.getDescription());
 		outNames=function.outNames();
 		paramNames=function.inNames();
 		params=new String[paramNames.length];
@@ -85,6 +88,10 @@ public class ChainedFunction {
 		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.relationshipsFromElement.RelationshipsFromElement")){
 			name="Relationships from Catalog";
 			return new RelationshipsFromElement();
+		}
+		else if(className.equals("co.edu.uniandes.archimate.analysis.functional.process.processResponsibilityAssignment.ProcessResponsibilityAssignment")){
+			name="Process responsibility assignment";
+			return new ProcessResponsibilityAssignment();
 		}
 		else{
 			return null;

@@ -233,7 +233,6 @@ public class Catalog extends AbstractArchiAnalysisFunction implements IChainable
 
 	@Override
 	public String[] inNames() {
-		
 		return new String[]{"File path:","Catalog class"};
 	}
 

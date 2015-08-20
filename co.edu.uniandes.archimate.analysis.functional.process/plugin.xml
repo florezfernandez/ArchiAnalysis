@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.functional.process.processResponsibilityAssignment.ProcessResponsibilityAssignment"
+            id="co.edu.uniandes.archimate.analysis.functional.process.ProcessResponsibilityAssignment"
+            name="ProcessResponsibilityAssignment">
+      </command>
+   </extension>
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu id="co.edu.uniandes.archimate.analysis.menus.mainmenu" label="ArchiAnalysis">
+            <menu
+                  icon="icons/menu-16.png"
+                  id="co.edu.uniandes.archimate.analysis.menus.mainmenu.process"
+                  label="Process">
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.functional.process.ProcessResponsibilityAssignment"
+                     icon="icons/analysis-16.png"
+                     label="Process responsibility assignment"
+                     style="push"
+                     tooltip="Process responsibility assignment">
+               </command>
+            </menu>
+         </menu>
+      </menuContribution>
+   </extension>
+</plugin>

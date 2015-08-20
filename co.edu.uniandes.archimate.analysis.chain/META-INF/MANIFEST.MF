@@ -13,3 +13,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: co.edu.uniandes.archimate.analysis.chain.jar,
  swing2swt.jar
+Import-Package: co.edu.uniandes.archimate.analysis.functional.process.processResponsibilityAssignment
+Export-Package: co.edu.uniandes.archimate.analysis.chain.utilities.results

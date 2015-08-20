@@ -11,7 +11,7 @@
             categoryId="co.edu.uniandes.archimate.analysis.functional.gap.menus.mainmenu.commands.category"
             id="co.edu.uniandes.archimate.analysis.functional.gap.commandBusinessProcessGapAnalysis"
             name="Data Security Transport">
-      </command>mmand>
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
