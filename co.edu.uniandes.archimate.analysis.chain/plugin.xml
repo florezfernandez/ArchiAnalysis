@@ -8,6 +8,11 @@
             name="Catalog">
       </command>
       <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogProperty"
+            id="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogProperty"
+            name="Catalog Property">
+      </command>
+      <command
             defaultHandler="co.edu.uniandes.archimate.analysis.chain.matrix.Matrix"
             id="co.edu.uniandes.archimate.analysis.chain.matrix.Matrix"
             name="Matrix">
@@ -48,6 +53,13 @@
                      label="Catalog"
                      style="push"
                      tooltip="Catalog">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogProperty"
+                     icon="icons/analysis-16.png"
+                     label="Catalog Property"
+                     style="push"
+                     tooltip="Catalog Property">
                </command>
                <command
                      commandId="co.edu.uniandes.archimate.analysis.chain.matrix.Matrix"
