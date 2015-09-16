@@ -98,7 +98,7 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 			searchElementsRecursively(diagramModelObj, list1,element1Class);
 		}
 		for(IArchimateElement element:list1){
-			if (DiagramModelUtil.getValue(element, "type")!=null){
+			if (DiagramModelUtil.getValue(element, propertyId)!=null){
 				if(DiagramModelUtil.getValue(element, propertyId).equals(propertyValue)){
 					WElement wElement=new WElement(element);
 					elements1.put(wElement.getId(),wElement);
