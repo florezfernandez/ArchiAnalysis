@@ -24,6 +24,7 @@ import co.edu.uniandes.archimate.analysis.analysischain.IChainableArchiFunction;
 import co.edu.uniandes.archimate.analysis.chain.matrix.Matrix;
 import co.edu.uniandes.archimate.analysis.chain.matrix.WElement;
 import co.edu.uniandes.archimate.analysis.chain.utilities.results.ResultSerializable;
+import co.edu.uniandes.archimate.analysis.chain.utilities.swt.CatalogPropertyAttributeSWT;
 import co.edu.uniandes.archimate.analysis.chain.utilities.swt.CatalogPropertySWT;
 import co.edu.uniandes.archimate.analysis.entities.ValidationResponse;
 import co.edu.uniandes.archimate.analysis.util.DiagramModelUtil;
@@ -39,7 +40,7 @@ import com.archimatetool.model.impl.BusinessActor;
 import com.archimatetool.model.impl.BusinessFunction;
 import com.archimatetool.model.impl.DiagramModelArchimateObject;
 
-public class CatalogProperty extends AbstractArchiAnalysisFunction implements IChainableArchiFunction{
+public class CatalogPropertyAttribute extends AbstractArchiAnalysisFunction implements IChainableArchiFunction{
 
 	private List<CatalogResult> results1;
 	private HashMap<String,WElement> elements1;
@@ -47,7 +48,8 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 	private File file;
 	private String[] params;
 	private String[] results;
-
+	private String[] attributesIds;
+	private String[] attributesValues;
 
 	/*
 	 * (non-Javadoc)
@@ -67,13 +69,14 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 	public Object validateModel(ValidationResponse validationResponse) throws Exception{
 
 
-		CatalogPropertySWT cSWT= new CatalogPropertySWT(Display.getCurrent());
+		CatalogPropertyAttributeSWT cSWT= new CatalogPropertyAttributeSWT(Display.getCurrent());
 		cSWT.displayWidget();
 
 		String result=cSWT.getFile();
 		String nClass=cSWT.getnClass();
 		String propertyId=cSWT.getPropertyId();
 		String propertyValue= cSWT.getPropertyValue();
+		String attributes=cSWT.getAttributes();
 		
 		System.out.println("Property: " + propertyId + " - " + propertyValue);
 		
@@ -93,11 +96,18 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 			//Validation error
 			return null;
 		}
+		if(attributes==null){
+			//Validation error
+			return null;
+		}
 		file = new File(result);
 		if(!file.exists()){
 			file.createNewFile();
 		}
 
+		attributesIds = attributes.split(",");
+		attributesValues= new String[attributesIds.length];
+		
 		elements1 =new HashMap<String,WElement>();
 		results1 = new ArrayList<CatalogResult>();
 		element1Class=Class.forName(nClass);	
@@ -123,10 +133,19 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 	@Override
 	public Object executeFunction() throws Exception {
 		Collection<WElement> elements=(Collection<WElement>) elements1.values();
+		String prop=null;
 		for(WElement element:elements){
-			CatalogResult result=new CatalogResult(element.getName(),element.getId());
+			for(int i=0; i<attributesIds.length; i++){
+				prop=DiagramModelUtil.getValue((IArchimateElement) element.getElement(), attributesIds[i]);
+				if(prop!=null)
+					attributesValues[i]= prop;
+				 else
+					attributesValues[i]= " ";
+			}
+			CatalogResultAttribute result=new CatalogResultAttribute(element.getName(),element.getId(),attributesValues);
 			results1.add(result);
 		}
+		
 		return null;
 	}
 
@@ -157,13 +176,20 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 	 */
 	@Override
 	public Object showResults () throws Exception{
-
-		String[] headers = new String[]{"Name", "Element ID"};
-		int[] widths = new int[]{200, 200};
+		String[] headers = new String[attributesIds.length+2];
+		headers[0]= "Name";
+		headers[1]= "Element ID";
+		for(int i=0; i<attributesIds.length; i++){
+			headers[i+2]= attributesIds[i];
+		}
+		int[] widths = new int[headers.length];
+		for(int i=0; i<headers.length; i++){
+			widths[i]=200;
+		}
 		save();
 		return createTable(headers, widths, results1, true, true);
-
 	} 
+	
 	/**
 	 * 
 	 */
@@ -190,6 +216,7 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 				+ "2. Name of the class for the catalog\n"
 				+ "3. Property id\n"
 				+ "4. Property value\n"
+				+ "5. Attributes to be shown\n"
 				+ "Output:\n"
 				+ "1. File path where the catalog was saved";
 	}

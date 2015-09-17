@@ -13,6 +13,16 @@
             name="Catalog Property">
       </command>
       <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogAttribute"
+            id="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogAttribute"
+            name="Catalog Attribute">
+      </command>
+      <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogPropertyAttribute"
+            id="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogPropertyAttribute"
+            name="Catalog Property Attribute">
+      </command>
+      <command
             defaultHandler="co.edu.uniandes.archimate.analysis.chain.matrix.Matrix"
             id="co.edu.uniandes.archimate.analysis.chain.matrix.Matrix"
             name="Matrix">
@@ -60,6 +70,20 @@
                      label="Catalog Property"
                      style="push"
                      tooltip="Catalog Property">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogAttribute"
+                     icon="icons/analysis-16.png"
+                     label="Catalog Attribute"
+                     style="push"
+                     tooltip="Catalog Attribute">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogPropertyAttribute"
+                     icon="icons/analysis-16.png"
+                     label="Catalog Property Attribute"
+                     style="push"
+                     tooltip="Catalog Property Attribute">
                </command>
                <command
                      commandId="co.edu.uniandes.archimate.analysis.chain.matrix.Matrix"
