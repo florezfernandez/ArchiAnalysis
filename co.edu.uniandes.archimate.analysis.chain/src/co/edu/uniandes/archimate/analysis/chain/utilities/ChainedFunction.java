@@ -7,7 +7,9 @@ import sun.security.util.Length;
 import co.edu.uniandes.archimate.analysis.analysischain.IChainableArchiFunction;
 import co.edu.uniandes.archimate.analysis.chain.addition.Addition;
 import co.edu.uniandes.archimate.analysis.chain.catalog.Catalog;
+import co.edu.uniandes.archimate.analysis.chain.catalog.CatalogAttribute;
 import co.edu.uniandes.archimate.analysis.chain.catalog.CatalogProperty;
+import co.edu.uniandes.archimate.analysis.chain.catalog.CatalogPropertyAttribute;
 import co.edu.uniandes.archimate.analysis.chain.childrenCatalog.ChildrenCatalog;
 import co.edu.uniandes.archimate.analysis.chain.countMatrix.CountMatrix;
 import co.edu.uniandes.archimate.analysis.chain.getCatalogElement.GetCatalogElement;
@@ -61,6 +63,14 @@ public class ChainedFunction {
 		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.catalog.CatalogProperty")){
 			name="Catalog Property";
 			return new CatalogProperty();
+		}
+		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.catalog.CatalogAttribute")){
+			name="Catalog Attribute";
+			return new CatalogAttribute();
+		}
+		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.catalog.CatalogPropertyAttribute")){
+			name="Catalog Property Attribute";
+			return new CatalogPropertyAttribute();
 		}
 		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.matrix.Matrix")){
 			name="Matrix";

@@ -225,24 +225,31 @@ public class CatalogPropertyAttribute extends AbstractArchiAnalysisFunction impl
 	public String[] executeFunction(String[] params) throws Exception {
 
 		initializeForChain();
-		if(params.length!=4){
+		if(params.length!=5){
 			throw new Exception("Wrong number of parameters");
 		}
 		String result=params[0];
 		String nClass=params[1];
 		String propertyId=params[2];
 		String propertyValue=params[3];
+		String attributes=params[4];
 		if(result==null){
 			throw new Exception("File path can't be null");
 		}
 		if(nClass==null){
 			throw new Exception("Class name can't be null");
 		}
+		if(attributes==null){
+			throw new Exception("Attributes can't be null");
+		}
 		file = new File(result);
 		if(!file.exists()){
 			file.createNewFile();
 		}
 
+		attributesIds = attributes.split(",");
+		attributesValues= new String[attributesIds.length];
+		
 		elements1 =new HashMap<String,WElement>();
 		results1 = new ArrayList<CatalogResult>();
 		element1Class=Class.forName(nClass);	
@@ -251,7 +258,7 @@ public class CatalogPropertyAttribute extends AbstractArchiAnalysisFunction impl
 			searchElementsRecursively(diagramModelObj, list1,element1Class);
 		}
 		for(IArchimateElement element:list1){
-			if (DiagramModelUtil.getValue(element, "type")!=null){
+			if (DiagramModelUtil.getValue(element, propertyId)!=null){
 				if(DiagramModelUtil.getValue(element, propertyId).equals(propertyValue)){
 					WElement wElement=new WElement(element);
 					elements1.put(wElement.getId(),wElement);
@@ -266,8 +273,16 @@ public class CatalogPropertyAttribute extends AbstractArchiAnalysisFunction impl
 	}
 
 	private void save(){
-		String[] headers = new String[]{"Name", "Element ID"};
-		int[] widths = new int[]{200, 200};
+		String[] headers = new String[attributesIds.length+2];
+		headers[0]= "Name";
+		headers[1]= "Element ID";
+		for(int i=0; i<attributesIds.length; i++){
+			headers[i+2]= attributesIds[i];
+		}
+		int[] widths = new int[headers.length];
+		for(int i=0; i<headers.length; i++){
+			widths[i]=200;
+		}
 		ResultSerializable resultSerializable=new ResultSerializable(results1, widths, headers);
 		if(file!=null){
 			try
@@ -286,7 +301,7 @@ public class CatalogPropertyAttribute extends AbstractArchiAnalysisFunction impl
 
 	@Override
 	public String[] inNames() {
-		return new String[]{"File path:","Catalog class","Property Id" , "Property Value"};
+		return new String[]{"File path:","Catalog class","Property Id" , "Property Value", "Attributes"};
 	}
 
 	@Override

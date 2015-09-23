@@ -49,7 +49,6 @@ public class CatalogAttribute extends AbstractArchiAnalysisFunction implements I
 	private String[] params;
 	private String[] results;
 	private String[] attributesIds;
-	private String[] attributesValues;
 	
 
 	/*
@@ -95,7 +94,6 @@ public class CatalogAttribute extends AbstractArchiAnalysisFunction implements I
 		}
 
 		attributesIds = attributes.split(",");
-		attributesValues= new String[attributesIds.length];
 		
 		elements1 = new HashMap<String,WElement>();
 		results1 = new ArrayList<CatalogResultAttribute>();
@@ -119,7 +117,9 @@ public class CatalogAttribute extends AbstractArchiAnalysisFunction implements I
 	public Object executeFunction() throws Exception {
 		Collection<WElement> elements=(Collection<WElement>) elements1.values();
 		String prop=null;
+		
 		for(WElement element:elements){
+			String[] attributesValues= new String[attributesIds.length];
 			for(int i=0; i<attributesIds.length; i++){
 				prop=DiagramModelUtil.getValue((IArchimateElement) element.getElement(), attributesIds[i]);
 				if(prop!=null)
@@ -130,7 +130,6 @@ public class CatalogAttribute extends AbstractArchiAnalysisFunction implements I
 			CatalogResultAttribute result=new CatalogResultAttribute(element.getName(),element.getId(),attributesValues);
 			results1.add(result);
 		}
-		
 		return null;
 	}
 
@@ -207,23 +206,29 @@ public class CatalogAttribute extends AbstractArchiAnalysisFunction implements I
 	public String[] executeFunction(String[] params) throws Exception {
 
 		initializeForChain();
-		if(params.length!=2){
+		if(params.length!=3){
 			throw new Exception("Wrong number of parameters");
 		}
 		String result=params[0];
 		String nClass=params[1];
+		String attributes= params[2];
 		if(result==null){
 			throw new Exception("File path can't be null");
 		}
 		if(nClass==null){
 			throw new Exception("Class name can't be null");
 		}
+		if(attributes==null){
+			throw new Exception("Attributes can't be null");
+		}
 		file = new File(result);
 		if(!file.exists()){
 			file.createNewFile();
 		}
 
-		elements1 =new HashMap<String,WElement>();
+		attributesIds = attributes.split(",");
+		
+		elements1 = new HashMap<String,WElement>();
 		results1 = new ArrayList<CatalogResultAttribute>();
 		element1Class=Class.forName(nClass);	
 		ArrayList<IArchimateElement> list1=new ArrayList<IArchimateElement>();
@@ -234,6 +239,7 @@ public class CatalogAttribute extends AbstractArchiAnalysisFunction implements I
 			WElement wElement=new WElement(element);
 			elements1.put(wElement.getId(),wElement);
 		}
+		
 		executeFunction();
 		save();
 		results=new String[1];
@@ -242,8 +248,16 @@ public class CatalogAttribute extends AbstractArchiAnalysisFunction implements I
 	}
 
 	private void save(){
-		String[] headers = new String[]{"Name", "Element ID"};
-		int[] widths = new int[]{200, 200};
+		String[] headers = new String[attributesIds.length+2];
+		headers[0]= "Name";
+		headers[1]= "Element ID";
+		for(int i=0; i<attributesIds.length; i++){
+			headers[i+2]= attributesIds[i];
+		}
+		int[] widths = new int[headers.length];
+		for(int i=0; i<headers.length; i++){
+			widths[i]=200;
+		}
 		ResultSerializable resultSerializable=new ResultSerializable(results1, widths, headers);
 		if(file!=null){
 			try
@@ -262,7 +276,7 @@ public class CatalogAttribute extends AbstractArchiAnalysisFunction implements I
 
 	@Override
 	public String[] inNames() {
-		return new String[]{"File path:","Catalog class"};
+		return new String[]{"File path:","Catalog class","Attributes"};
 	}
 
 	@Override

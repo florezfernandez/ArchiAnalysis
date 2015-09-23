@@ -13,8 +13,7 @@ import com.archimatetool.model.IArchimateElement;
 public class CatalogResultAttribute extends CatalogResult{
 	private String name;
 	private String id;
-//	private String[] attributes;
-	Object[] toArray;
+	private String[] attributes;
 	
 	/**
 	 * 
@@ -23,22 +22,10 @@ public class CatalogResultAttribute extends CatalogResult{
 	 */
 	public CatalogResultAttribute(String name,String id, String[] attributes){
 		super(name, id);
+		this.attributes= new String[attributes.length];
 		this.name=name;
 		this.id=id;
-//		this.attributes=attributes;
-//		
-//		for(int i=0; i<this.attributes.length; i++){
-//			System.out.println("ResAt init: " + this.attributes[i]);
-//		}
-		
-		toArray= new Object[attributes.length+2];
-		toArray[0]=name;
-		toArray[1]=id;
-		for(int i=0; i<attributes.length; i++){
-			System.out.println("ResAt: " + attributes[i]);
-			toArray[i+2]= attributes[i];
-		}
-		
+		this.attributes=attributes;
 	}
 	
 	/*
@@ -47,17 +34,13 @@ public class CatalogResultAttribute extends CatalogResult{
 	 */
 	@Override
 	public Object[] toArray() {
-//		Object[] ob= new Object[attributes.length+2];
-//		ob[0]=name;
-//		ob[1]=id;
-//		System.out.println("............ Name: " + name + " ...............");
-//		for(int i=0; i<attributes.length; i++){
-//			System.out.println("ResAt: " + attributes[i]);
-//			ob[i+2]= attributes[i];
-//		}
-//		return ob;
-		
-		return toArray;
+		Object[] ob= new Object[attributes.length+2];
+		ob[0]=name;
+		ob[1]=id;
+		for(int i=0; i<attributes.length; i++){
+			ob[i+2]= attributes[i];
+		}
+		return ob;
 	}
 
 	/*
