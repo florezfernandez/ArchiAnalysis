@@ -8,8 +8,8 @@ import co.edu.uniandes.archimate.analysis.analysischain.IChainableArchiFunction;
 import co.edu.uniandes.archimate.analysis.chain.addition.Addition;
 import co.edu.uniandes.archimate.analysis.chain.catalog.Catalog;
 import co.edu.uniandes.archimate.analysis.chain.catalog.CatalogAttribute;
-import co.edu.uniandes.archimate.analysis.chain.catalog.CatalogProperty;
-import co.edu.uniandes.archimate.analysis.chain.catalog.CatalogPropertyAttribute;
+import co.edu.uniandes.archimate.analysis.chain.catalog.CatalogType;
+import co.edu.uniandes.archimate.analysis.chain.catalog.CatalogTypeAttribute;
 import co.edu.uniandes.archimate.analysis.chain.childrenCatalog.ChildrenCatalog;
 import co.edu.uniandes.archimate.analysis.chain.countMatrix.CountMatrix;
 import co.edu.uniandes.archimate.analysis.chain.getCatalogElement.GetCatalogElement;
@@ -60,17 +60,17 @@ public class ChainedFunction {
 			name="Catalog";
 			return new Catalog();
 		}
-		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.catalog.CatalogProperty")){
-			name="Catalog Property";
-			return new CatalogProperty();
+		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.catalog.CatalogType")){
+			name="Catalog Type";
+			return new CatalogType();
 		}
 		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.catalog.CatalogAttribute")){
 			name="Catalog Attribute";
 			return new CatalogAttribute();
 		}
-		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.catalog.CatalogPropertyAttribute")){
-			name="Catalog Property Attribute";
-			return new CatalogPropertyAttribute();
+		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.catalog.CatalogTypeAttribute")){
+			name="Catalog Type Attribute";
+			return new CatalogTypeAttribute();
 		}
 		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.matrix.Matrix")){
 			name="Matrix";

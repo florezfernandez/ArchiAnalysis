@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Text;
 
 import swing2swt.layout.BorderLayout;
 
-public class CatalogPropertyAttributeSWT {
+public class CatalogTypeSWT {
 
 
 	//-----------------------------
@@ -28,27 +28,25 @@ public class CatalogPropertyAttributeSWT {
 	private Shell shell;
 	private String file;
 	private String nClass;
-	private String propertyId;
-	private String propertyValue;
-	private String attributes;
+	private String type;
 
 	//----------------------------
 	//Constructors
 	//----------------------------
 
 
-	public CatalogPropertyAttributeSWT(Display d){
+	public CatalogTypeSWT(Display d){
 		if(d!=null){
 			display=d;
 			shell=new Shell(display);
 		}
 	}
 
-	public CatalogPropertyAttributeSWT(Shell s){
+	public CatalogTypeSWT(Shell s){
 		shell=s;
 	}
 
-	public CatalogPropertyAttributeSWT(){
+	public CatalogTypeSWT(){
 		display=new Display();
 		shell= new Shell(display);
 	}
@@ -110,29 +108,12 @@ public class CatalogPropertyAttributeSWT {
 		Group propertyGroup = new Group(shell, SWT.NONE);
 		propertyGroup.setLayout(new GridLayout(2, false));
 		
-		Label lblPropId = new Label(propertyGroup, SWT.NONE);
-		lblPropId.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		lblPropId.setText("Property Id");
-		
-		final Text textPropId = new Text(propertyGroup, SWT.BORDER);
-		textPropId.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		
 		Label lblPropValue = new Label(propertyGroup, SWT.NONE);
 		lblPropValue.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		lblPropValue.setText("Property Value");
+		lblPropValue.setText("Type");
 		
 		final Text textPropValue = new Text(propertyGroup, SWT.BORDER);
 		textPropValue.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		
-		Group attributeGroup = new Group(shell, SWT.NONE);
-		attributeGroup.setLayout(new GridLayout(2, false));
-		
-		Label lblAttribute = new Label(attributeGroup, SWT.NONE);
-		lblAttribute.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		lblAttribute.setText("Attributes");
-		
-		final Text textAttributes = new Text(attributeGroup, SWT.BORDER);
-		textAttributes.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		Group buttonGroup = new Group(shell, SWT.NONE);
 		buttonGroup.setLayout(new GridLayout(1, false));
@@ -163,9 +144,7 @@ public class CatalogPropertyAttributeSWT {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				nClass=combo.getText();
-				propertyId= textPropId.getText();
-				propertyValue= textPropValue.getText();
-				attributes= textAttributes.getText();
+				type= textPropValue.getText();
 				shell.dispose();
 			}
 
@@ -192,17 +171,10 @@ public class CatalogPropertyAttributeSWT {
 		return nClass;
 	}
 	
-	public String getPropertyId(){
-		return propertyId;
+	public String getPropertyValue(){
+		return type;
 	}
 	
-	public String getPropertyValue(){
-		return propertyValue;
-	}
-
-	public String getAttributes() {
-		return attributes;
-	}
 
 
 }

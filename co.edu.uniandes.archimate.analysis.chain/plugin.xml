@@ -8,9 +8,9 @@
             name="Catalog">
       </command>
       <command
-            defaultHandler="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogProperty"
-            id="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogProperty"
-            name="Catalog Property">
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogType"
+            id="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogType"
+            name="Catalog Type">
       </command>
       <command
             defaultHandler="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogAttribute"
@@ -18,9 +18,9 @@
             name="Catalog Attribute">
       </command>
       <command
-            defaultHandler="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogPropertyAttribute"
-            id="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogPropertyAttribute"
-            name="Catalog Property Attribute">
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogTypeAttribute"
+            id="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogTypeAttribute"
+            name="Catalog Type Attribute">
       </command>
       <command
             defaultHandler="co.edu.uniandes.archimate.analysis.chain.matrix.Matrix"
@@ -65,11 +65,11 @@
                      tooltip="Catalog">
                </command>
                <command
-                     commandId="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogProperty"
+                     commandId="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogType"
                      icon="icons/analysis-16.png"
-                     label="Catalog Property"
+                     label="Catalog Type"
                      style="push"
-                     tooltip="Catalog Property">
+                     tooltip="Catalog Type">
                </command>
                <command
                      commandId="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogAttribute"
@@ -79,11 +79,11 @@
                      tooltip="Catalog Attribute">
                </command>
                <command
-                     commandId="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogPropertyAttribute"
+                     commandId="co.edu.uniandes.archimate.analysis.chain.catalog.CatalogTypeAttribute"
                      icon="icons/analysis-16.png"
-                     label="Catalog Property Attribute"
+                     label="Catalog Type Attribute"
                      style="push"
-                     tooltip="Catalog Property Attribute">
+                     tooltip="Catalog Type Attribute">
                </command>
                <command
                      commandId="co.edu.uniandes.archimate.analysis.chain.matrix.Matrix"

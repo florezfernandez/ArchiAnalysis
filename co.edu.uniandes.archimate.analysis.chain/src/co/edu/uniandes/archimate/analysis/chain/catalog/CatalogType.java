@@ -24,7 +24,7 @@ import co.edu.uniandes.archimate.analysis.analysischain.IChainableArchiFunction;
 import co.edu.uniandes.archimate.analysis.chain.matrix.Matrix;
 import co.edu.uniandes.archimate.analysis.chain.matrix.WElement;
 import co.edu.uniandes.archimate.analysis.chain.utilities.results.ResultSerializable;
-import co.edu.uniandes.archimate.analysis.chain.utilities.swt.CatalogPropertySWT;
+import co.edu.uniandes.archimate.analysis.chain.utilities.swt.CatalogTypeSWT;
 import co.edu.uniandes.archimate.analysis.entities.ValidationResponse;
 import co.edu.uniandes.archimate.analysis.util.DiagramModelUtil;
 
@@ -39,7 +39,7 @@ import com.archimatetool.model.impl.BusinessActor;
 import com.archimatetool.model.impl.BusinessFunction;
 import com.archimatetool.model.impl.DiagramModelArchimateObject;
 
-public class CatalogProperty extends AbstractArchiAnalysisFunction implements IChainableArchiFunction{
+public class CatalogType extends AbstractArchiAnalysisFunction implements IChainableArchiFunction{
 
 	private List<CatalogResult> results1;
 	private HashMap<String,WElement> elements1;
@@ -67,15 +67,12 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 	public Object validateModel(ValidationResponse validationResponse) throws Exception{
 
 
-		CatalogPropertySWT cSWT= new CatalogPropertySWT(Display.getCurrent());
+		CatalogTypeSWT cSWT= new CatalogTypeSWT(Display.getCurrent());
 		cSWT.displayWidget();
 
 		String result=cSWT.getFile();
 		String nClass=cSWT.getnClass();
-		String propertyId=cSWT.getPropertyId();
-		String propertyValue= cSWT.getPropertyValue();
-		
-		System.out.println("Property: " + propertyId + " - " + propertyValue);
+		String type= cSWT.getPropertyValue();
 		
 		if(result==null){
 			//Validation error
@@ -85,11 +82,7 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 			//Validation error
 			return null;
 		}
-		if(propertyId==null){
-			//Validation error
-			return null;
-		}
-		if(propertyValue==null){
+		if(type==null){
 			//Validation error
 			return null;
 		}
@@ -106,8 +99,8 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 			searchElementsRecursively(diagramModelObj, list1,element1Class);
 		}
 		for(IArchimateElement element:list1){
-			if (DiagramModelUtil.getValue(element, propertyId)!=null){
-				if(DiagramModelUtil.getValue(element, propertyId).equals(propertyValue)){
+			if (DiagramModelUtil.getValue(element, "type")!=null){
+				if(DiagramModelUtil.getValue(element, "type").equals(type)){
 					WElement wElement=new WElement(element);
 					elements1.put(wElement.getId(),wElement);
 				}
@@ -174,7 +167,7 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 
 	@Override
 	public String[] displayWidget() {
-		CatalogPropertySWT cSWT= new CatalogPropertySWT(Display.getCurrent());
+		CatalogTypeSWT cSWT= new CatalogTypeSWT(Display.getCurrent());
 		cSWT.displayWidget();
 		String[] ret={cSWT.getFile(),cSWT.getnClass()};
 		return ret;
@@ -188,8 +181,7 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 				+ "Input parameters:\n"
 				+ "1. File path where the catalog will be saved\n"
 				+ "2. Name of the class for the catalog\n"
-				+ "3. Property id\n"
-				+ "4. Property value\n"
+				+ "3. Type\n"
 				+ "Output:\n"
 				+ "1. File path where the catalog was saved";
 	}
@@ -198,13 +190,12 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 	public String[] executeFunction(String[] params) throws Exception {
 
 		initializeForChain();
-		if(params.length!=4){
+		if(params.length!=3){
 			throw new Exception("Wrong number of parameters");
 		}
 		String result=params[0];
 		String nClass=params[1];
-		String propertyId=params[2];
-		String propertyValue=params[3];
+		String type=params[2];
 		if(result==null){
 			throw new Exception("File path can't be null");
 		}
@@ -225,7 +216,7 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 		}
 		for(IArchimateElement element:list1){
 			if (DiagramModelUtil.getValue(element, "type")!=null){
-				if(DiagramModelUtil.getValue(element, propertyId).equals(propertyValue)){
+				if(DiagramModelUtil.getValue(element, "type").equals(type)){
 					WElement wElement=new WElement(element);
 					elements1.put(wElement.getId(),wElement);
 				}
@@ -259,7 +250,7 @@ public class CatalogProperty extends AbstractArchiAnalysisFunction implements IC
 
 	@Override
 	public String[] inNames() {
-		return new String[]{"File path:","Catalog class","Property Id" , "Property Value"};
+		return new String[]{"File path:","Catalog class", "Type"};
 	}
 
 	@Override
