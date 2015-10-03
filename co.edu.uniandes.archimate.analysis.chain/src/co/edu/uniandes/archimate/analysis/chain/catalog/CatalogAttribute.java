@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,12 +13,14 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.keys.model.ModelElement;
 
 import co.edu.uniandes.archimate.analysis.AbstractArchiAnalysisFunction;
 import co.edu.uniandes.archimate.analysis.analysischain.IChainableArchiFunction;
@@ -29,16 +32,26 @@ import co.edu.uniandes.archimate.analysis.chain.utilities.swt.CatalogSWT;
 import co.edu.uniandes.archimate.analysis.entities.ValidationResponse;
 import co.edu.uniandes.archimate.analysis.util.DiagramModelUtil;
 
+import com.archimatetool.editor.diagram.AbstractDiagramEditor;
 import com.archimatetool.editor.diagram.ArchimateDiagramEditor;
+import com.archimatetool.editor.diagram.ArchimateDiagramModelFactory;
+import com.archimatetool.editor.diagram.DiagramEditorFactoryExtensionHandler;
 import com.archimatetool.editor.ui.services.EditorManager;
+import com.archimatetool.model.FolderType;
 import com.archimatetool.model.IArchimateElement;
+import com.archimatetool.model.IArchimateFactory;
 import com.archimatetool.model.IArchimateModel;
+import com.archimatetool.model.IDiagramModel;
+import com.archimatetool.model.IDiagramModelArchimateObject;
+import com.archimatetool.model.IDiagramModelContainer;
 import com.archimatetool.model.IDiagramModelObject;
 import com.archimatetool.model.IRelationship;
+import com.archimatetool.model.impl.ArchimateDiagramModel;
 import com.archimatetool.model.impl.AssignmentRelationship;
 import com.archimatetool.model.impl.BusinessActor;
 import com.archimatetool.model.impl.BusinessFunction;
 import com.archimatetool.model.impl.DiagramModelArchimateObject;
+import com.archimatetool.model.impl.DiagramModelObject;
 
 public class CatalogAttribute extends AbstractArchiAnalysisFunction implements IChainableArchiFunction{
 
@@ -92,7 +105,49 @@ public class CatalogAttribute extends AbstractArchiAnalysisFunction implements I
 		if(!file.exists()){
 			file.createNewFile();
 		}
+		
+		//////////MODEL INPUT!!!//////////
+		IArchimateModel model = getActiveArchimateModel();
+		for (IDiagramModel diag: model.getDiagramModels()) {
+			if(diag.getName().equals("HR Capacity")){
+				this.setDiagramModel(diag);
+				this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
+			}
+		}
+		
+		///////MODEL OUTPUT!!!///////////
+		
+		IDiagramModel diag= (ArchimateDiagramModel) IArchimateFactory.eINSTANCE.createArchimateDiagramModel();
+		diag.setName("Test");
+		diag.setConnectionRouterType(0);
+		diag.eAdapters().addAll(model.getDiagramModels().get(0).eAdapters());
+		model.getDiagramModels().add(diag);
+		
+		model.getFolder(FolderType.DIAGRAMS).getElements().add(diag);
 
+		/// PRUEBAS PARA AGREGAR ELEMENTO ///
+		
+		DiagramModelArchimateObject diagramModelObject= (DiagramModelArchimateObject) IArchimateFactory.eINSTANCE.createDiagramModelArchimateObject();
+//		diagramModelObject.getChildren().add((IDiagramModelObject) IArchimateFactory.eINSTANCE.createBusinessActor());
+
+//		Class<?> clazz=  diagramModelObject.getClass();
+//		Field f = clazz.getDeclaredField("fArchimateElement");
+//		f.setAccessible(true);
+//		f.set(diagramModelObject, IArchimateFactory.eINSTANCE.createBusinessActor()); 
+//		
+//		System.out.println("TEST: " + DiagramModelUtil.getModelElement(diagramModelObject).getClass().toString());
+//		
+//		diag.getChildren().add(diagramModelObject);
+		
+		this.setDiagramModel(diag);
+		this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
+
+
+		DiagramModelUtil.getModelElement(diagramModelObject);
+		
+		
+		//CONTINUA MÉTODO
+		
 		attributesIds = attributes.split(",");
 		
 		elements1 = new HashMap<String,WElement>();
@@ -100,7 +155,7 @@ public class CatalogAttribute extends AbstractArchiAnalysisFunction implements I
 		element1Class=Class.forName(nClass);	
 		ArrayList<IArchimateElement> list1=new ArrayList<IArchimateElement>();
 		for(IDiagramModelObject diagramModelObj: this.getDiagramModel().getChildren()){
-			searchElementsRecursively(diagramModelObj, list1,element1Class);
+			searchElementsRecursively(diagramModelObj, list1, element1Class);
 		}
 		for(IArchimateElement element:list1){
 			WElement wElement=new WElement(element);

@@ -28,6 +28,11 @@
             name="Matrix">
       </command>
       <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.model.FilterModel"
+            id="co.edu.uniandes.archimate.analysis.chain.model.FilterModel"
+            name="Filter Model">
+      </command>
+      <command
             defaultHandler="co.edu.uniandes.archimate.analysis.chain.load.Load"
             id="co.edu.uniandes.archimate.analysis.chain.load.Load"
             name="Load">
@@ -98,6 +103,13 @@
                      label="Count Matrix"
                      style="push"
                      tooltip="Count">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.chain.model.FilterModel"
+                     icon="icons/analysis-16.png"
+                     label="Filter Model"
+                     style="push"
+                     tooltip="Filter Model">
                </command>
                <command
                      commandId="co.edu.uniandes.archimate.analysis.chain.load.Load"
