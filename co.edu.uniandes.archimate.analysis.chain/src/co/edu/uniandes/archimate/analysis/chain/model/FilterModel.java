@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.widgets.Display;
 
 import com.archimatetool.editor.ui.services.EditorManager;
@@ -16,6 +18,7 @@ import com.archimatetool.model.IArchimateModel;
 import com.archimatetool.model.IDiagramModel;
 import com.archimatetool.model.IDiagramModelObject;
 import com.archimatetool.model.impl.ArchimateDiagramModel;
+import com.archimatetool.model.impl.BusinessActor;
 import com.archimatetool.model.impl.DiagramModelArchimateObject;
 
 import co.edu.uniandes.archimate.analysis.AbstractArchiAnalysisFunction;
@@ -81,64 +84,12 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 	 */
 	@Override
 	public Object executeFunction() throws Exception {
-
-		/// ELEMENTS SEARCH
-		
-//		for (int i = 0; i < elementArray.length; i++) {
-//			element1Class=Class.forName("com.archimatetool.model.impl."+elementArray[i].trim());
-//			ArrayList<IArchimateElement> list1=new ArrayList<IArchimateElement>();
-//			for(IDiagramModelObject diagramModelObj: this.getDiagramModel().getChildren()){
-//				searchElementsRecursively(diagramModelObj, list1, element1Class);
-//			}
-//			for(IArchimateElement element:list1){
-//				WElement wElement=new WElement(element);
-//				elements1.put(wElement.getId(),wElement);
-//			}
-//		}		
-//		
-//		System.out.println("------------------ELEMENTS------------------------");
-//		Collection<WElement> elements=(Collection<WElement>) elements1.values();
-//		for(WElement element:elements){
-//			System.out.println(element.getId() + "=== " + element.getName());
-//		}
-//		
-//		///////MODEL OUTPUT!!!///////////
-//		
-//		IArchimateModel model = getActiveArchimateModel();
-//		IDiagramModel diag= (ArchimateDiagramModel) IArchimateFactory.eINSTANCE.createArchimateDiagramModel();
-//		diag.setName("Test");
-//		diag.setConnectionRouterType(0);
-//		diag.eAdapters().addAll(model.getDiagramModels().get(0).eAdapters());
-//		model.getDiagramModels().add(diag);
-//		
-//		model.getFolder(FolderType.DIAGRAMS).getElements().add(diag);
-//
-//		/// PRUEBAS PARA AGREGAR ELEMENTO ///
-//		
-//		DiagramModelArchimateObject diagramModelObject= (DiagramModelArchimateObject) IArchimateFactory.eINSTANCE.createDiagramModelArchimateObject();
-////		diagramModelObject.getChildren().add((IDiagramModelObject) IArchimateFactory.eINSTANCE.createBusinessActor());
-//
-////		Class<?> clazz=  diagramModelObject.getClass();
-////		Field f = clazz.getDeclaredField("fArchimateElement");
-////		f.setAccessible(true);
-////		f.set(diagramModelObject, IArchimateFactory.eINSTANCE.createBusinessActor()); 
-////		
-////		System.out.println("TEST: " + DiagramModelUtil.getModelElement(diagramModelObject).getClass().toString());
-////		
-////		diag.getChildren().add(diagramModelObject);
-//		
-//		this.setDiagramModel(diag);
-//		this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
-
-		
-		
 		IArchimateModel model = getActiveArchimateModel();
 		IDiagramModel diag= (ArchimateDiagramModel) IArchimateFactory.eINSTANCE.createArchimateDiagramModel();
 		diag.setName("Test");
 		diag.setConnectionRouterType(0);
 		diag.eAdapters().addAll(model.getDiagramModels().get(0).eAdapters());
 		model.getFolder(FolderType.DIAGRAMS).getElements().add(diag);
-//		diag.getChildren().addAll(this.getDiagramModel().getChildren());
 		
 		for (int i = 0; i < elementArray.length; i++) {
 			element1Class=Class.forName("com.archimatetool.model.impl."+elementArray[i].trim());
@@ -146,28 +97,15 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 			for(IDiagramModelObject diagramModelObj: this.getDiagramModel().getChildren()){
 				copyElementsRecursively(diagramModelObj,list1, element1Class);
 			}
+			diag.getChildren().addAll(list1);
 		}	
-		
-		for (int i = 0; i < elementArray.length; i++) {
-			element1Class=Class.forName("com.archimatetool.model.impl."+elementArray[i].trim());
-			ArrayList<IArchimateElement> list1=new ArrayList<IArchimateElement>();
-			for(IDiagramModelObject diagramModelObj: this.getDiagramModel().getChildren()){
-				searchElementsRecursively(diagramModelObj, list1, element1Class);
-			}
-			for(IArchimateElement element:list1){
-				WElement wElement=new WElement(element);
-				elements1.put(wElement.getId(),wElement);
-			}
-		}	
-		
-		System.out.println("------------------ELEMENTS------------------------");
-		Collection<WElement> elements=(Collection<WElement>) elements1.values();
-		for(WElement element:elements){
-			System.out.println(element.getId() + "=== " + element.getName());
-		}
 		
 		this.setDiagramModel(diag);
 		this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
+		
+		for (IDiagramModelObject element : this.getDiagramModel().getChildren()) {
+			System.out.println(element.getId() + "=== " + element.getName());
+		}
 		
 		return null;
 	}
@@ -192,6 +130,7 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 		}
 	}
 	
+	
 	private void copyElementsRecursively(IDiagramModelObject diagramModelObj, List<IDiagramModelObject> elementList, Class<?> elementClass) throws Exception{
 		if(diagramModelObj instanceof DiagramModelArchimateObject){
 			DiagramModelArchimateObject archimateObject = ((DiagramModelArchimateObject)diagramModelObj);
@@ -201,25 +140,14 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 			}
 
 			if(DiagramModelUtil.getModelElement(diagramModelObj).getClass().equals(elementClass)){
-				elementList.add(diagramModelObj);
+				DiagramModelArchimateObject diaModelArchimateObject= (DiagramModelArchimateObject) diagramModelObj.getCopy();
+				diaModelArchimateObject.setArchimateElement(((DiagramModelArchimateObject) diagramModelObj).getArchimateElement());
+				diaModelArchimateObject.setId(diagramModelObj.getId());
+				elementList.add(diaModelArchimateObject);
 			}			
 		}
 	}
 	
-	private void deleteElementsRecursively(IDiagramModelObject diagramModelObj, List<IArchimateElement> elementList,Class<?> elementClass) throws Exception{
-		if(diagramModelObj instanceof DiagramModelArchimateObject){
-			DiagramModelArchimateObject archimateObject = ((DiagramModelArchimateObject)diagramModelObj);
-
-			for(IDiagramModelObject diagramModelObjChild: archimateObject.getChildren()){
-				searchElementsRecursively(diagramModelObjChild, elementList, elementClass);
-			}
-
-			if(DiagramModelUtil.getModelElement(diagramModelObj).getClass().equals(elementClass)){
-				elementList.add((IArchimateElement) DiagramModelUtil.getModelElement(diagramModelObj));
-			}			
-		}
-	}
-
 	/**
 	 * 
 	 */
