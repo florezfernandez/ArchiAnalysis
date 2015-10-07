@@ -15,6 +15,7 @@ import co.edu.uniandes.archimate.analysis.chain.countMatrix.CountMatrix;
 import co.edu.uniandes.archimate.analysis.chain.getCatalogElement.GetCatalogElement;
 import co.edu.uniandes.archimate.analysis.chain.getPropertyInRelation.GetPropertyInRelation;
 import co.edu.uniandes.archimate.analysis.chain.matrix.Matrix;
+import co.edu.uniandes.archimate.analysis.chain.model.FilterModel;
 import co.edu.uniandes.archimate.analysis.chain.relationshipsFromElement.RelationshipsFromElement;
 import co.edu.uniandes.archimate.analysis.functional.process.processResponsibilityAssignment.ProcessResponsibilityAssignment;
 
@@ -107,6 +108,10 @@ public class ChainedFunction {
 		else if(className.equals("co.edu.uniandes.archimate.analysis.functional.process.processResponsibilityAssignment.ProcessResponsibilityAssignment")){
 			name="Process responsibility assignment";
 			return new ProcessResponsibilityAssignment();
+		}
+		else if(className.equals("co.edu.uniandes.archimate.analysis.chain.model.FilterModel")){
+			name="Filter Model";
+			return new FilterModel();
 		}
 		else{
 			return null;

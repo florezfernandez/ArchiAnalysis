@@ -107,46 +107,14 @@ public class CatalogAttribute extends AbstractArchiAnalysisFunction implements I
 		}
 		
 		//////////MODEL INPUT!!!//////////
-		IArchimateModel model = getActiveArchimateModel();
-		for (IDiagramModel diag: model.getDiagramModels()) {
-			if(diag.getName().equals("HR Capacity")){
-				this.setDiagramModel(diag);
-				this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
-			}
-		}
-		
-		///////MODEL OUTPUT!!!///////////
-		
-		IDiagramModel diag= (ArchimateDiagramModel) IArchimateFactory.eINSTANCE.createArchimateDiagramModel();
-		diag.setName("Test");
-		diag.setConnectionRouterType(0);
-		diag.eAdapters().addAll(model.getDiagramModels().get(0).eAdapters());
-		model.getDiagramModels().add(diag);
-		
-		model.getFolder(FolderType.DIAGRAMS).getElements().add(diag);
-
-		/// PRUEBAS PARA AGREGAR ELEMENTO ///
-		
-		DiagramModelArchimateObject diagramModelObject= (DiagramModelArchimateObject) IArchimateFactory.eINSTANCE.createDiagramModelArchimateObject();
-//		diagramModelObject.getChildren().add((IDiagramModelObject) IArchimateFactory.eINSTANCE.createBusinessActor());
-
-//		Class<?> clazz=  diagramModelObject.getClass();
-//		Field f = clazz.getDeclaredField("fArchimateElement");
-//		f.setAccessible(true);
-//		f.set(diagramModelObject, IArchimateFactory.eINSTANCE.createBusinessActor()); 
-//		
-//		System.out.println("TEST: " + DiagramModelUtil.getModelElement(diagramModelObject).getClass().toString());
-//		
-//		diag.getChildren().add(diagramModelObject);
-		
-		this.setDiagramModel(diag);
-		this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
-
-
-		DiagramModelUtil.getModelElement(diagramModelObject);
-		
-		
-		//CONTINUA MÉTODO
+//		IArchimateModel model = getActiveArchimateModel();
+//		for (IDiagramModel diag: model.getDiagramModels()) {
+//			if(diag.getName().equals("HR Capacity")){
+//				this.setDiagramModel(diag);
+//				this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
+//			}
+//		}
+			
 		
 		attributesIds = attributes.split(",");
 		

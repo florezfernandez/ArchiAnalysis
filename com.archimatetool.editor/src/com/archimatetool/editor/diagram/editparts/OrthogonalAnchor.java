@@ -333,6 +333,11 @@ public class OrthogonalAnchor extends ChopboxAnchor {
 		
         switch(fAnchorType) {
             case CONNECTION_SRC:
+            	System.out.println("*******FAnchorConn :" + fAnchorConnection.toString());
+            	System.out.println("*******Source: " + fAnchorConnection.getSource().toString());
+            	System.out.println("*******Target: " + fAnchorConnection.getTarget().toString());
+            	System.out.println("*******Target Model: " + fAnchorConnection.getTarget().getModel().toString());
+            	System.out.println("*******Figure: " + ((GraphicalEditPart)fAnchorConnection.getTarget()).getFigure().toString());
                 fRemoteFig = ((GraphicalEditPart)fAnchorConnection.getTarget()).getFigure();
                 break;
             case CONNECTION_TGT:

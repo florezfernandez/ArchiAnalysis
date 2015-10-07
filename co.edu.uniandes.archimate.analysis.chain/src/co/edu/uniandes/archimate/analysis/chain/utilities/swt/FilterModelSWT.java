@@ -24,6 +24,7 @@ public class FilterModelSWT {
 	private Display display;
 	private Shell shell;
 	private String elements;
+	private String newModelName;
 
 	//----------------------------
 	//Constructors
@@ -60,9 +61,16 @@ public class FilterModelSWT {
 		Group attributeGroup = new Group(shell, SWT.NONE);
 		attributeGroup.setLayout(new GridLayout(2, false));
 		
-		Label lblAttribute = new Label(attributeGroup, SWT.NONE);
-		lblAttribute.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		lblAttribute.setText("Elements");
+		Label lblName = new Label(attributeGroup, SWT.NONE);
+		lblName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		lblName.setText("New model name");
+		
+		final Text textName = new Text(attributeGroup, SWT.BORDER);
+		textName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		Label lblElements = new Label(attributeGroup, SWT.NONE);
+		lblElements.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		lblElements.setText("Elements");
 		
 		final Text textElements = new Text(attributeGroup, SWT.BORDER);
 		textElements.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -77,6 +85,7 @@ public class FilterModelSWT {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				elements= textElements.getText();
+				newModelName = textName.getText();
 				shell.dispose();
 			}
 
@@ -99,5 +108,14 @@ public class FilterModelSWT {
 		return elements;
 	}
 
+	public String getNewModelName() {
+		return newModelName;
+	}
 
+	public void setNewModelName(String newModelName) {
+		this.newModelName = newModelName;
+	}
+
+	
+	
 }
