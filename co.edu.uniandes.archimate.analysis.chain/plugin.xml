@@ -33,6 +33,11 @@
             name="Filter Model">
       </command>
       <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.model.ModelInput"
+            id="co.edu.uniandes.archimate.analysis.chain.model.ModelInput"
+            name="Model Input">
+      </command>
+      <command
             defaultHandler="co.edu.uniandes.archimate.analysis.chain.load.Load"
             id="co.edu.uniandes.archimate.analysis.chain.load.Load"
             name="Load">
@@ -110,6 +115,13 @@
                      label="Filter Model"
                      style="push"
                      tooltip="Filter Model">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.chain.model.ModelInput"
+                     icon="icons/analysis-16.png"
+                     label="Model Input"
+                     style="push"
+                     tooltip="Model Input">
                </command>
                <command
                      commandId="co.edu.uniandes.archimate.analysis.chain.load.Load"

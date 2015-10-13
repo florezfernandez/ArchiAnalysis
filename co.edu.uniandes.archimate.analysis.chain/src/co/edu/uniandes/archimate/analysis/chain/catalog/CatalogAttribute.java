@@ -106,16 +106,6 @@ public class CatalogAttribute extends AbstractArchiAnalysisFunction implements I
 			file.createNewFile();
 		}
 		
-		//////////MODEL INPUT!!!//////////
-//		IArchimateModel model = getActiveArchimateModel();
-//		for (IDiagramModel diag: model.getDiagramModels()) {
-//			if(diag.getName().equals("HR Capacity")){
-//				this.setDiagramModel(diag);
-//				this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
-//			}
-//		}
-			
-		
 		attributesIds = attributes.split(",");
 		
 		elements1 = new HashMap<String,WElement>();

@@ -46,7 +46,7 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 	
 	@Override
 	public String getName(){
-		return "Get Catalog";
+		return "Get Filter Model";
 	}
 
 	/*
@@ -71,15 +71,6 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 		if(name==null){
 			//Validation error
 			return null;
-		}
-		
-		//////////MODEL INPUT!!!//////////
-		IArchimateModel model = getActiveArchimateModel();
-		for (IDiagramModel diag: model.getDiagramModels()) {
-			if(diag.getName().equals("HR Capacity")){
-				this.setDiagramModel(diag);
-				this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
-			}
 		}
 		
 		elementArray = elements.split(",");
