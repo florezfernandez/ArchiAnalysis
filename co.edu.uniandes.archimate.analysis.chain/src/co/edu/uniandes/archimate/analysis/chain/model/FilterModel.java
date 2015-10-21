@@ -25,6 +25,7 @@ import com.archimatetool.model.impl.DiagramModelArchimateConnection;
 import com.archimatetool.model.impl.DiagramModelArchimateObject;
 import com.archimatetool.model.impl.DiagramModelConnection;
 import com.archimatetool.model.impl.DiagramModelObject;
+import com.archimatetool.model.impl.Relationship;
 
 import co.edu.uniandes.archimate.analysis.AbstractArchiAnalysisFunction;
 import co.edu.uniandes.archimate.analysis.analysischain.IChainableArchiFunction;
@@ -56,8 +57,6 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 	@SuppressWarnings("null")
 	@Override
 	public Object validateModel(ValidationResponse validationResponse) throws Exception{
-
-
 		FilterModelSWT fmSWT= new FilterModelSWT(Display.getCurrent());
 		fmSWT.displayWidget();
 
@@ -100,27 +99,11 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 			}
 			diag.getChildren().addAll(list1);
 		}
+		getRelationsNewModel(this.getDiagramModel().getChildren(), diag.getChildren());
 		
 		this.setDiagramModel(diag);
 		this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
-		
-		for (IDiagramModelObject element : this.getDiagramModel().getChildren()) {
-			System.out.println(element.getId() + "=== " + element.getName());
-			System.out.println("Source Connections");
-			for (IDiagramModelConnection conn : element.getSourceConnections()) {
-				System.out.println(DiagramModelUtil.getModelRelationship(conn).getClass());
-				System.out.println("S Source: " + conn.getSource().getName());
-				System.out.println("S Target: " + conn.getTarget().getName());
-			}
-			System.out.println("Target Connections");
-			for (IDiagramModelConnection conn : element.getTargetConnections()) {
-				System.out.println(DiagramModelUtil.getModelRelationship(conn).getClass());
-				System.out.println("T Source: " + conn.getSource().getName());
-				System.out.println("T Target: " + conn.getTarget().getName());
-			}
-		}
-		
-		
+
 		return null;
 	}
 	
@@ -146,59 +129,37 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 				diaModelArchimateObject.setArchimateElement(archiElement);
 				diaModelArchimateObject.setId(diagramModelObj.getId());
 				
-				for (IDiagramModelConnection diaModelArchimateConnection : (List<IDiagramModelConnection>) diagramModelObj.getSourceConnections()) {
-					IDiagramModelConnection diagConnection = validSourceConnection(diaModelArchimateConnection);
-					if(diagConnection!=null){
-						diagConnection.setSource(diaModelArchimateObject);
-						diagConnection.setId(diaModelArchimateConnection.getId());
-						diagConnection.setName(diaModelArchimateConnection.getName());
-						diaModelArchimateObject.getSourceConnections().add(diagConnection);
-					}
-				}
-				for (IDiagramModelConnection diaModelArchimateConnection : (List<IDiagramModelConnection>) diagramModelObj.getTargetConnections()) {
-					IDiagramModelConnection diagConnection = validTargetConnection(diaModelArchimateConnection);
-					if(diagConnection!=null){
-						diagConnection.setTarget(diaModelArchimateObject);
-						diagConnection.setId(diaModelArchimateConnection.getId());
-						diagConnection.setName(diaModelArchimateConnection.getName());
-						diaModelArchimateObject.getTargetConnections().add(diagConnection);
-					}
-				}
-				
 				elementList.add(diaModelArchimateObject);
 			}			
 		}
 	}
 	
-	/**
-	 * 
-	 * @param diaModelArchimateConnection
-	 * @return
-	 * @throws NoSuchFieldException
-	 * @throws IllegalAccessException
-	 * @throws ClassNotFoundException
-	 */
-	private IDiagramModelConnection validSourceConnection(IDiagramModelConnection diaModelArchimateConnection) throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException{
-		for (int i = 0; i < elementArray.length; i++) {
-			if(DiagramModelUtil.getModelElement(diaModelArchimateConnection.getTarget()).getClass().equals(Class.forName("com.archimatetool.model.impl."+elementArray[i].trim()))){
-				IDiagramModelConnection diagConnection= (IDiagramModelConnection) diaModelArchimateConnection.getCopy();
-//				DiagramModelArchimateObject oldTarget= (DiagramModelArchimateObject) diaModelArchimateConnection.getTarget();
-//				DiagramModelArchimateObject newTarget= (DiagramModelArchimateObject) diaModelArchimateConnection.getTarget().getCopy();
-//				ArchimateElement archiElement= (ArchimateElement) ((DiagramModelArchimateObject) oldTarget).getArchimateElement().getCopy();
-//				archiElement.setId(((DiagramModelArchimateObject) oldTarget).getArchimateElement().getId());
-//				newTarget.setArchimateElement(archiElement);
-//				newTarget.setId(oldTarget.getId());
-//				
-//				diagConnection.setTarget(newTarget);
+	private void getRelationsNewModel(List<IDiagramModelObject> diagramModelObjList, List<IDiagramModelObject> diaModelArchimateObjectList) throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException{
+		DiagramModelArchimateObject diaModelArchimateObject=null;
+		for (IDiagramModelObject diagramModelObj : diagramModelObjList) {
+			for (IDiagramModelConnection diaModelArchimateConnection : (List<IDiagramModelConnection>) diagramModelObj.getSourceConnections()) {
+			IDiagramModelConnection diagConnection = validSourceConnection(diaModelArchimateConnection, diaModelArchimateObjectList);
+			if(diagConnection!=null){
+
+				for (IDiagramModelObject diagMod : diaModelArchimateObjectList) {
+					if(diaModelArchimateConnection.getSource().getId().equals(diagMod.getId())){
+						diaModelArchimateObject= (DiagramModelArchimateObject) diagMod;
+						diagConnection.setSource((DiagramModelArchimateObject) diagMod);
+					}
+				}
 				
-				diagConnection.setTarget((DiagramModelArchimateObject) diaModelArchimateConnection.getTarget());
-//				System.out.println("OLD TARGET: " + (DiagramModelArchimateObject) diaModelArchimateConnection.getTarget());
-//				System.out.println("NEW TARGET: " + (DiagramModelArchimateObject) diagConnection.getTarget());
+				diagConnection.setId(diaModelArchimateConnection.getId());
+				diagConnection.setName(diaModelArchimateConnection.getName());
+				Relationship relationship= (Relationship) ((DiagramModelArchimateConnection) diaModelArchimateConnection).getRelationship().getCopy();
+				relationship.setId(((DiagramModelArchimateConnection) diaModelArchimateConnection).getRelationship().getId());
+
+				((DiagramModelArchimateConnection) diagConnection).setRelationship(relationship);
 				
-				return diagConnection;
+				diaModelArchimateObject.addConnection(diagConnection);
+				diagConnection.getTarget().addConnection(diagConnection);
 			}
 		}
-		return null;
+		}
 	}
 	
 	/**
@@ -209,22 +170,16 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
 	 */
-	private IDiagramModelConnection validTargetConnection(IDiagramModelConnection diaModelArchimateConnection) throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException{
+	private IDiagramModelConnection validSourceConnection(IDiagramModelConnection diaModelArchimateConnection, List<IDiagramModelObject> diaModelArchimateObject) throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException{
 		for (int i = 0; i < elementArray.length; i++) {
 			if(DiagramModelUtil.getModelElement(diaModelArchimateConnection.getTarget()).getClass().equals(Class.forName("com.archimatetool.model.impl."+elementArray[i].trim()))){
 				IDiagramModelConnection diagConnection= (IDiagramModelConnection) diaModelArchimateConnection.getCopy();
-//				DiagramModelArchimateObject oldSource= (DiagramModelArchimateObject) diaModelArchimateConnection.getSource();
-//				DiagramModelArchimateObject newSource= (DiagramModelArchimateObject) diaModelArchimateConnection.getSource().getCopy();
-//				ArchimateElement archiElement= (ArchimateElement) ((DiagramModelArchimateObject) oldSource).getArchimateElement().getCopy();
-//				archiElement.setId(((DiagramModelArchimateObject) oldSource).getArchimateElement().getId());
-//				newSource.setArchimateElement(archiElement);
-//				newSource.setId(oldSource.getId());
-//				diagConnection.setSource(newSource);
-				
-				diagConnection.setSource((DiagramModelArchimateObject) diaModelArchimateConnection.getSource());
-//				System.out.println("OLD TARGET: " + (DiagramModelArchimateObject) diaModelArchimateConnection.getSource());
-//				System.out.println("NEW TARGET: " + (DiagramModelArchimateObject) diagConnection.getSource());
-				
+
+				for (IDiagramModelObject diagMod : diaModelArchimateObject) {
+					if(diaModelArchimateConnection.getTarget().getId().equals(diagMod.getId())){
+						diagConnection.setTarget((DiagramModelArchimateObject) diagMod);
+					}
+				}
 				return diagConnection;
 			}
 		}
@@ -279,15 +234,6 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 		if(elements==null){
 			//Validation error
 			return null;
-		}
-		
-		//////////MODEL INPUT!!!//////////
-		IArchimateModel model = getActiveArchimateModel();
-		for (IDiagramModel diag: model.getDiagramModels()) {
-			if(diag.getName().equals("HR Capacity")){
-				this.setDiagramModel(diag);
-				this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
-			}
 		}
 		
 		elementArray = elements.split(",");
