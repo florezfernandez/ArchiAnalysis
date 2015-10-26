@@ -80,13 +80,18 @@ public class ModelInput extends AbstractArchiAnalysisFunction implements IChaina
 	@Override
 	public Object executeFunction() throws Exception {
 		IArchimateModel model = getActiveArchimateModel();
+		IDiagramModel newDiagram= null;
 		for (IDiagramModel diag: model.getDiagramModels()) {
-			if(diag.getName().trim().equals(name)){
-				this.setDiagramModel(diag);
-				this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
-			}
+			if(diag.getName().trim().equals(name)) 
+				newDiagram=diag;
 		}
-		
+		if(newDiagram!=null){
+			this.setDiagramModel(newDiagram);
+			this.setGfViwer(EditorManager.openDiagramEditor(getDiagramModel()).getGraphicalViewer());
+		}
+		else{
+			throw new NullPointerException("Model not found");
+		}
 		return null;
 	}
 	

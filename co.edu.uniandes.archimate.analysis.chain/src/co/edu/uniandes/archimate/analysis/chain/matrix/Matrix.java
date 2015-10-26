@@ -126,8 +126,6 @@ public class Matrix extends AbstractArchiAnalysisFunction implements IChainableA
 			idsCat2.add(catRes.getId());
 		}
 		
-		
-		
 		listResults = new ArrayList<MatrixResult>();
 		elements1 =new HashMap<String,WElement>();
 		elements2 =new HashMap<String,WElement>();
@@ -164,7 +162,6 @@ public class Matrix extends AbstractArchiAnalysisFunction implements IChainableA
 				
 			}
 
-
 		}
 
 
@@ -187,7 +184,6 @@ public class Matrix extends AbstractArchiAnalysisFunction implements IChainableA
 
 		return null;
 	}
-
 	
 
 	/**
