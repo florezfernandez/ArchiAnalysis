@@ -38,6 +38,11 @@
             name="Model Input">
       </command>
       <command
+            defaultHandler="co.edu.uniandes.archimate.analysis.chain.export.Export"
+            id="co.edu.uniandes.archimate.analysis.chain.export.Export"
+            name="Export">
+      </command>
+      <command
             defaultHandler="co.edu.uniandes.archimate.analysis.chain.load.Load"
             id="co.edu.uniandes.archimate.analysis.chain.load.Load"
             name="Load">
@@ -122,6 +127,13 @@
                      label="Model Input"
                      style="push"
                      tooltip="Model Input">
+               </command>
+               <command
+                     commandId="co.edu.uniandes.archimate.analysis.chain.export.Export"
+                     icon="icons/analysis-16.png"
+                     label="Export"
+                     style="push"
+                     tooltip="Export">
                </command>
                <command
                      commandId="co.edu.uniandes.archimate.analysis.chain.load.Load"
