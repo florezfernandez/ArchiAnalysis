@@ -116,6 +116,8 @@ public class Export extends AbstractArchiAnalysisFunction{
 			
 			System.out.println("SIZE RESULT: " + result.getResultEntries().size());
 			
+			result.getResultEntries();
+			
 			//Row row= sheet.createRow(arg0)
 			//http://monillo007.blogspot.com/2014/01/3-sencillos-pasos-para-generar-archivos.html
 			
