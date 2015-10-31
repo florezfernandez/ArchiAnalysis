@@ -1,5 +1,6 @@
 package co.edu.uniandes.archimate.analysis.chain.export;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,6 +16,12 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
@@ -23,9 +30,12 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.WorkbookEditorsHandler;
 
+import com.archimatetool.model.impl.ArchimateElement;
 import com.archimatetool.model.impl.BusinessFunction;
 
 import co.edu.uniandes.archimate.analysis.AbstractArchiAnalysisFunction;
+import co.edu.uniandes.archimate.analysis.ITableResult;
+import co.edu.uniandes.archimate.analysis.analysischain.IChainableArchiFunction;
 import co.edu.uniandes.archimate.analysis.chain.catalog.Catalog;
 import co.edu.uniandes.archimate.analysis.chain.matrix.WElement;
 import co.edu.uniandes.archimate.analysis.chain.utilities.results.ResultSerializable;
@@ -55,15 +65,11 @@ public class Export extends AbstractArchiAnalysisFunction{
 	 */
 	@Override
 	public Object validateModel(ValidationResponse validationResponse) throws Exception{
-
-		
-
 		IWorkbench wb = PlatformUI.getWorkbench(); 
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 		
 		FileDialog dialog = new FileDialog(win.getShell(), SWT.OPEN);
 		dialog.setFilterExtensions(new String [] {"*.matrix","*.catalog"});
-//		dialog.setFilterPath("/Users/DavidBermeo/Desktop/");
 
 		String result = dialog.open();
 
@@ -71,7 +77,6 @@ public class Export extends AbstractArchiAnalysisFunction{
 		if(!file.exists()){
 			throw new FileNotFoundException("File not found");
 		}
-		//		}
 
 		return null;
 	}	
@@ -107,29 +112,36 @@ public class Export extends AbstractArchiAnalysisFunction{
 			newFilePath= newFilePath + ".xls";
 			System.out.println("NEW FILE PATH: " + newFilePath);
 			File newFile= new File(newFilePath);
-			if(newFile.exists()) newFile.delete();
+			if(newFile.exists()) 
+				newFile.delete();
 			newFile.createNewFile();
+			newFile.setWritable(true);
 			
-//			Workbook book= new HSSFWorkbook();
-//			FileOutputStream newFileOutputStream= new FileOutputStream(newFile);
-//			Sheet sheet= book.createSheet();
+			Workbook book= new HSSFWorkbook();
+			FileOutputStream newFileOutputStream= new FileOutputStream(newFile);
+			Sheet sheet= book.createSheet();
 			
 			System.out.println("SIZE RESULT: " + result.getResultEntries().size());
 			
-			result.getResultEntries();
+			Row row= sheet.createRow(0);
+			for (int j = 0; j < result.getHeaders().length; j++) {
+				Cell cell = row.createCell(j);
+                cell.setCellValue(result.getHeaders()[j]);
+			}
+			for (int i = 0; i < result.getResultEntries().size(); i++) {
+				row= sheet.createRow(i+1);
+				for (int j = 0; j < result.getHeaders().length; j++) {
+					Cell cell = row.createCell(j);
+	                cell.setCellValue((String) result.getResultEntries().get(i).toArray()[j]);
+				}
+			}
 			
-			//Row row= sheet.createRow(arg0)
-			//http://monillo007.blogspot.com/2014/01/3-sencillos-pasos-para-generar-archivos.html
-			
-			String[] headers = result.getHeaders();
-			int[] widths=result.getColumnSize();
-			//return createTable(headers, widths, result.getResultEntries(), true, true);
+			book.write(newFileOutputStream);
+			newFileOutputStream.close();
+			Desktop.getDesktop().open(newFile);
 		}
 		return null;	
 		}
-
-
-
 
 	/**
 	 * 
@@ -145,4 +157,49 @@ public class Export extends AbstractArchiAnalysisFunction{
 	public Boolean clearResults() {
 		return true;
 	}
+
+//	@Override
+//	public String[] displayWidget() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public String getDescription() {
+//		return "This function exports a catalog or a matrix to xls file.\n"
+//				+ "Input parameters:\n"
+//				+ "1. File path of the catalog or matrix to be exported\n"
+//				+ "Output:\n"
+//				+ "1. File path where xls was saved";
+//	}
+//
+//	@Override
+//	public String[] executeFunction(String[] params) throws Exception {
+//		IWorkbench wb = PlatformUI.getWorkbench(); 
+//		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+//		
+//		FileDialog dialog = new FileDialog(win.getShell(), SWT.OPEN);
+//		dialog.setFilterExtensions(new String [] {"*.matrix","*.catalog"});
+//
+//		String result = dialog.open();
+//
+//		file = new File(result);
+//		if(!file.exists()){
+//			throw new FileNotFoundException("File not found");
+//		}
+//		executeFunction();
+//		return null;
+//	}
+//
+//	@Override
+//	public String[] inNames() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public String[] outNames() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }

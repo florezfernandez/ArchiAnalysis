@@ -3,7 +3,6 @@ package co.edu.uniandes.archimate.analysis.chain.utilities;
 
 import java.util.ArrayList;
 
-import sun.security.util.Length;
 import co.edu.uniandes.archimate.analysis.analysischain.IChainableArchiFunction;
 import co.edu.uniandes.archimate.analysis.chain.addition.Addition;
 import co.edu.uniandes.archimate.analysis.chain.catalog.Catalog;

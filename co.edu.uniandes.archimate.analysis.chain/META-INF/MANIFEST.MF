@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.10.0",
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: co.edu.uniandes.archimate.analysis.chain.jar,
- swing2swt.jar
+ swing2swt.jar,
+ poi-3.9-20121203.jar
 Import-Package: co.edu.uniandes.archimate.analysis.functional.hr.raci,
  co.edu.uniandes.archimate.analysis.functional.process.processResponsibilityAssignment
 Export-Package: co.edu.uniandes.archimate.analysis.chain,
