@@ -136,29 +136,31 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 	
 	private void getRelationsNewModel(List<IDiagramModelObject> diagramModelObjList, List<IDiagramModelObject> diaModelArchimateObjectList) throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException{
 		DiagramModelArchimateObject diaModelArchimateObject=null;
-		for (IDiagramModelObject diagramModelObj : diagramModelObjList) {
-			for (IDiagramModelConnection diaModelArchimateConnection : (List<IDiagramModelConnection>) diagramModelObj.getSourceConnections()) {
-			IDiagramModelConnection diagConnection = validSourceConnection(diaModelArchimateConnection, diaModelArchimateObjectList);
-			if(diagConnection!=null){
-
-				for (IDiagramModelObject diagMod : diaModelArchimateObjectList) {
-					if(diaModelArchimateConnection.getSource().getId().equals(diagMod.getId())){
-						diaModelArchimateObject= (DiagramModelArchimateObject) diagMod;
-						diagConnection.setSource((DiagramModelArchimateObject) diagMod);
+		for (int i = 0; i < elementArray.length; i++) {
+			for (IDiagramModelObject diagramModelObj : diagramModelObjList) {
+				if(DiagramModelUtil.getModelElement(diagramModelObj).getClass().equals(Class.forName("com.archimatetool.model.impl."+elementArray[i].trim()))){
+					for (IDiagramModelConnection diaModelArchimateConnection : (List<IDiagramModelConnection>) diagramModelObj.getSourceConnections()) {
+						IDiagramModelConnection diagConnection = validSourceConnection(diaModelArchimateConnection, diaModelArchimateObjectList);
+						if(diagConnection!=null){
+							for (IDiagramModelObject diagMod : diaModelArchimateObjectList) {
+								if(diaModelArchimateConnection.getSource().getId().equals(diagMod.getId())){
+									diaModelArchimateObject= (DiagramModelArchimateObject) diagMod;
+									diagConnection.setSource((DiagramModelArchimateObject) diagMod);
+								}
+							}
+							diagConnection.setId(diaModelArchimateConnection.getId());
+							diagConnection.setName(diaModelArchimateConnection.getName());
+							Relationship relationship= (Relationship) ((DiagramModelArchimateConnection) diaModelArchimateConnection).getRelationship().getCopy();
+							relationship.setId(((DiagramModelArchimateConnection) diaModelArchimateConnection).getRelationship().getId());
+			
+							((DiagramModelArchimateConnection) diagConnection).setRelationship(relationship);
+							
+							diaModelArchimateObject.addConnection(diagConnection);
+							diagConnection.getTarget().addConnection(diagConnection);
+						}
 					}
 				}
-				
-				diagConnection.setId(diaModelArchimateConnection.getId());
-				diagConnection.setName(diaModelArchimateConnection.getName());
-				Relationship relationship= (Relationship) ((DiagramModelArchimateConnection) diaModelArchimateConnection).getRelationship().getCopy();
-				relationship.setId(((DiagramModelArchimateConnection) diaModelArchimateConnection).getRelationship().getId());
-
-				((DiagramModelArchimateConnection) diagConnection).setRelationship(relationship);
-				
-				diaModelArchimateObject.addConnection(diagConnection);
-				diagConnection.getTarget().addConnection(diagConnection);
 			}
-		}
 		}
 	}
 	
@@ -172,6 +174,7 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 	 */
 	private IDiagramModelConnection validSourceConnection(IDiagramModelConnection diaModelArchimateConnection, List<IDiagramModelObject> diaModelArchimateObject) throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException{
 		for (int i = 0; i < elementArray.length; i++) {
+			System.out.println("ElementArray ==== " + elementArray[i]);
 			if(DiagramModelUtil.getModelElement(diaModelArchimateConnection.getTarget()).getClass().equals(Class.forName("com.archimatetool.model.impl."+elementArray[i].trim()))){
 				IDiagramModelConnection diagConnection= (IDiagramModelConnection) diaModelArchimateConnection.getCopy();
 
@@ -180,6 +183,7 @@ public class FilterModel extends AbstractArchiAnalysisFunction implements IChain
 						diagConnection.setTarget((DiagramModelArchimateObject) diagMod);
 					}
 				}
+				System.out.println("DiagConnection: " + diagConnection);
 				return diagConnection;
 			}
 		}

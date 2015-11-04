@@ -158,48 +158,4 @@ public class Export extends AbstractArchiAnalysisFunction{
 		return true;
 	}
 
-//	@Override
-//	public String[] displayWidget() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public String getDescription() {
-//		return "This function exports a catalog or a matrix to xls file.\n"
-//				+ "Input parameters:\n"
-//				+ "1. File path of the catalog or matrix to be exported\n"
-//				+ "Output:\n"
-//				+ "1. File path where xls was saved";
-//	}
-//
-//	@Override
-//	public String[] executeFunction(String[] params) throws Exception {
-//		IWorkbench wb = PlatformUI.getWorkbench(); 
-//		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-//		
-//		FileDialog dialog = new FileDialog(win.getShell(), SWT.OPEN);
-//		dialog.setFilterExtensions(new String [] {"*.matrix","*.catalog"});
-//
-//		String result = dialog.open();
-//
-//		file = new File(result);
-//		if(!file.exists()){
-//			throw new FileNotFoundException("File not found");
-//		}
-//		executeFunction();
-//		return null;
-//	}
-//
-//	@Override
-//	public String[] inNames() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public String[] outNames() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 }
