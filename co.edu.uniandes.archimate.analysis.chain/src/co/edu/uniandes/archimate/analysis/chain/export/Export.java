@@ -110,7 +110,6 @@ public class Export extends AbstractArchiAnalysisFunction{
 			newFilePath= newFilePath.replace(".catalog", "");
 			newFilePath= newFilePath.replace(".matrix", "");
 			newFilePath= newFilePath + ".xls";
-			System.out.println("NEW FILE PATH: " + newFilePath);
 			File newFile= new File(newFilePath);
 			if(newFile.exists()) 
 				newFile.delete();
@@ -120,8 +119,6 @@ public class Export extends AbstractArchiAnalysisFunction{
 			Workbook book= new HSSFWorkbook();
 			FileOutputStream newFileOutputStream= new FileOutputStream(newFile);
 			Sheet sheet= book.createSheet();
-			
-			System.out.println("SIZE RESULT: " + result.getResultEntries().size());
 			
 			Row row= sheet.createRow(0);
 			for (int j = 0; j < result.getHeaders().length; j++) {

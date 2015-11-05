@@ -386,7 +386,6 @@ public class XmlChainHandler extends DefaultHandler {
 
 	}
 
-
 	private String askUser(String val) {
 		UserInputSWT uiswt=new UserInputSWT(Display.getCurrent(), val);
 		uiswt.displayWidget();

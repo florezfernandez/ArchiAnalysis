@@ -207,6 +207,7 @@ public class BusinessProcessGapAnalysis extends AbstractArchiAnalysisFunction{
 				aBPGapAnalysisResult.add(result);
 			}
 		}
+		
 		for(Entry<String,WElement> entry:elementTOBE){
 			String key=entry.getKey();
 			WElement element=entry.getValue();
