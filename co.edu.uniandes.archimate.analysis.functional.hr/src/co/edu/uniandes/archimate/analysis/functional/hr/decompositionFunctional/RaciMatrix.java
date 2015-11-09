@@ -1,4 +1,4 @@
-package co.edu.uniandes.archimate.analysis.functional.hr.raci;
+package co.edu.uniandes.archimate.analysis.functional.hr.decompositionFunctional;
 
 import java.io.File;
 import java.io.FileInputStream;

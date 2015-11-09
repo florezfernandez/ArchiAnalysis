@@ -135,8 +135,8 @@ public class AddFunctionDialog extends Dialog {
 		try {
 			SAXParser saxParser = saxParserFactory.newSAXParser();
 			XmlFunctionsHandler handler = new XmlFunctionsHandler();
-			saxParser.parse(new File("/Users/Admin/Documents/ArchiAnalysis/Pruebas/functions.xml"), handler);
-//			saxParser.parse(new File("D:/Documentos/ArchiAnalysis/Pruebas/functions.xml"), handler);
+//			saxParser.parse(new File("/Users/Admin/Documents/ArchiAnalysis/Pruebas/functions.xml"), handler);
+			saxParser.parse(new File("D:/Documentos/ArchiAnalysis/Pruebas/functions.xml"), handler);
 			functions=handler.getFuncList();
 			String[] fNames=new String[functions.size()];
 			for(int i=0;i<functions.size();i++){

@@ -11,15 +11,16 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
-public class RaciMatrixSWT {
+public class DecompositionFunctionalxSWT {
 	
 	//-----------------------------
 	//Attributes
 	//-----------------------------
 	private Display display;
 	private Shell shell;
-	private String file1;
-	private String file2;
+	private String orgUnitVsActorMatrix;
+	private String actorVsRoleMatrix;
+	private String raciMatrix;
 	private String fileSave;
 	
 	
@@ -28,18 +29,18 @@ public class RaciMatrixSWT {
 	//----------------------------
 	
 	
-	public RaciMatrixSWT(Display d){
+	public DecompositionFunctionalxSWT(Display d){
 		if(d!=null){
 		display=d;
 		shell=new Shell(display);
 		}
 	}
 	
-	public RaciMatrixSWT(Shell s){
+	public DecompositionFunctionalxSWT(Shell s){
 		shell=s;
 	}
 	
-	public RaciMatrixSWT(){
+	public DecompositionFunctionalxSWT(){
 		display=new Display();
 		shell= new Shell(display);
 	}
@@ -56,40 +57,49 @@ public class RaciMatrixSWT {
 		shell.setLayout(new FillLayout(SWT.FILL));
 
 		Button buttonFile1 =  new Button(shell, SWT.PUSH);
-		buttonFile1.setText("Open 1:");
+		buttonFile1.setText("Open Org. Unit vs Actor Matrix");
 		buttonFile1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				FileDialog dialog = new FileDialog(shell, SWT.OPEN);
-				dialog.setFilterExtensions(new String [] {"*.catalog"});
-				dialog.setFilterPath("/Users/DavidBermeo/Desktop/");
-				file1 = dialog.open();
+				dialog.setFilterExtensions(new String [] {"*.matrix"});
+				orgUnitVsActorMatrix = dialog.open();
 			
 			}
 
 		});
+		
 		Button buttonFile2 =  new Button(shell, SWT.PUSH);
-		buttonFile2.setText("Open 2:");
+		buttonFile2.setText("Open Actor vs Role Matrix");
 		buttonFile2.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				FileDialog dialog = new FileDialog(shell, SWT.OPEN);
-				dialog.setFilterExtensions(new String [] {"*.catalog"});
-				dialog.setFilterPath("/Users/DavidBermeo/Desktop/");
-				file2 = dialog.open();
+				dialog.setFilterExtensions(new String [] {"*.matrix"});
+				actorVsRoleMatrix = dialog.open();
 			}
 
 		});
 		
+		Button buttonFile3 =  new Button(shell, SWT.PUSH);
+		buttonFile2.setText("Open RACI Matrix");
+		buttonFile2.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				FileDialog dialog = new FileDialog(shell, SWT.OPEN);
+				dialog.setFilterExtensions(new String [] {"*.matrix"});
+				raciMatrix = dialog.open();
+			}
+
+		});
 		
 		Button buttonFileSave =  new Button(shell, SWT.PUSH);
-		buttonFileSave.setText("Save:");
+		buttonFileSave.setText("Save");
 		buttonFileSave.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				FileDialog dialog = new FileDialog(shell, SWT.SAVE);
 				dialog.setFilterExtensions(new String [] {"*.matrix"});
-				dialog.setFilterPath("/Users/DavidBermeo/Desktop/");
 				String result = dialog.open();
 				if(result!=null){
 					if(!result.endsWith(".matrix")){
@@ -121,17 +131,20 @@ public class RaciMatrixSWT {
 				display.sleep();
 			}
 		}
-
 	}
 
-	public String getFile1() {
-		return file1;
+	public String getFileorgUnitVsActorMatrix() {
+		return orgUnitVsActorMatrix;
 	}
 	
-	public String getFile2() {
-		return file2;
+	public String getFileactorVsRoleMatrix() {
+		return actorVsRoleMatrix;
 	}
 	
+	public String getRaciMatrix() {
+		return raciMatrix;
+	}
+
 	public String getFileSave() {
 		return fileSave;
 	}

@@ -17,7 +17,7 @@ import co.edu.uniandes.archimate.analysis.chain.matrix.Matrix;
 import co.edu.uniandes.archimate.analysis.chain.model.FilterModel;
 import co.edu.uniandes.archimate.analysis.chain.model.ModelInput;
 import co.edu.uniandes.archimate.analysis.chain.relationshipsFromElement.RelationshipsFromElement;
-import co.edu.uniandes.archimate.analysis.functional.hr.raci.RaciMatrix;
+import co.edu.uniandes.archimate.analysis.functional.hr.raci.DecompositionFunctional;
 import co.edu.uniandes.archimate.analysis.functional.process.processResponsibilityAssignment.ProcessResponsibilityAssignment;
 
 public class ChainedFunction {
@@ -120,7 +120,7 @@ public class ChainedFunction {
 		}
 		else if(className.equals("co.edu.uniandes.archimate.analysis.functional.hr.raci.RaciMatrix")){
 			name="RACI Matrix";
-			return new RaciMatrix();
+			return new DecompositionFunctional();
 		}
 		else{
 			return null;

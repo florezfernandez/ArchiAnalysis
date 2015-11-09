@@ -46,9 +46,7 @@ import co.edu.uniandes.archimate.analysis.util.DiagramModelUtil;
 
 public class Export extends AbstractArchiAnalysisFunction{
 
-
 	private File file;
-
 
 	/*
 	 * (non-Javadoc)

@@ -13,18 +13,17 @@ import co.edu.uniandes.archimate.analysis.ITableResult;
 
 import com.archimatetool.model.IArchimateElement;
 
-public class RaciMatrixResult implements ITableResult, Serializable{
+public class DecompositionFunctionalResult implements ITableResult, Serializable{
 
 	private String name;
 	private Object [] result;
-	
 	
 	/**
 	 * 
 	 * @param elementType
 	 * @param line
 	 */
-	public RaciMatrixResult(WElement element1, List<WElement> orderedElements2){
+	public DecompositionFunctionalResult(WElement element1, List<WElement> orderedElements2){
 		name=element1.getName();
 		result=new Object[orderedElements2.size()+1];
 		result[0]=name;
